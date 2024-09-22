@@ -62,7 +62,7 @@ $ npm run test:cov
 
 ```bash
 # create network
-$ docker create network laravel-network
+$ docker create network instock-network
 
 # create external services containers
 $ docker compose -f compose.services.yaml up
@@ -71,7 +71,7 @@ $ docker compose -f compose.services.yaml up
 $ docker compose up
 
 # access application terminal
-$ docker compose exec instock bash
+$ docker compose exec instock-backend bash
 ```
 ## Resources
 

@@ -11,16 +11,7 @@ services:
           POSTGRES_PASSWORD: instock-pass
           PGDATA: /var/lib/postgresql/data
         networks:
-          - laravel-network
-    redis:
-      image: redis
-      restart: always
-      ports:
-        - 6379:6379
-      environment:
-        - REDIS_PORT=6379
-      networks:
-        - laravel-network
+          - instock-network
 networks:
-    laravel-network:
+    instock-network:
         external: true

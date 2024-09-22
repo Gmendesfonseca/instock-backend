@@ -21,5 +21,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'true',
     '@typescript-eslint/explicit-module-boundary-types': 'true',
     '@typescript-eslint/no-explicit-any': 'true',
+    '@typescript-eslint/no-unused-vars': ['error'],
   },
 };
