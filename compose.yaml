@@ -1,0 +1,24 @@
+services:
+    instock:
+        container_name: instock-app-local
+        build:
+            context: .
+            dockerfile: Dockerfile.local
+        ports:
+          - 3333:3333
+        networks:
+          - laravel-network
+        volumes:
+          - ./:/usr/src/
+        environment:
+          - PG_HOST=postgres
+          - PG_PORT=5432
+          - PG_USER=instockmaster
+          - PG_PASSWORD=instock-pass
+          - PG_DB_NAME=local
+          - REDIS_HOST=redis
+          - REDIS_PORT=6379
+          - REDIS_CONNECTION=local
+networks:
+    laravel-network:
+        external: true

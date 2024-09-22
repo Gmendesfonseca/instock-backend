@@ -58,6 +58,21 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Docker setup
+
+```bash
+# create network
+$ docker create network laravel-network
+
+# create external services containers
+$ docker compose -f compose.services.yaml up
+
+# crete application container
+$ docker compose up
+
+# access application terminal
+$ docker compose exec instock bash
+```
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:
