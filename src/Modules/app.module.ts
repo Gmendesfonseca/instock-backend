@@ -15,7 +15,7 @@ import { User } from 'src/Entities/user.entity';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: process.env.DB_TYPE as any,
+      type: 'postgres',
       host: process.env.PG_HOST,
       port: parseInt(process.env.PG_PORT, 10),
       username: process.env.PG_USER,

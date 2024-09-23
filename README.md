@@ -62,7 +62,7 @@ $ npm run test:cov
 
 ```bash
 # create network
-$ docker create network instock-network
+$ docker network create instock-network
 
 # create external services containers
 $ docker compose -f compose.services.yaml up
