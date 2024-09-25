@@ -6,7 +6,7 @@ services:
         ports:
           - 5432:5432
         environment:
-          PG_DB_NAME: local
+          PG_DB_NAME: postgres
           POSTGRES_USER: instockmaster
           POSTGRES_PASSWORD: instock-pass
           PGDATA: /var/lib/postgresql/data
