@@ -22,7 +22,6 @@ type ApplicationProperties = {
 };
 
 type DatabaseProperties = {
-  DB_VENDOR: 'postgres';
   DB_HOST: string;
   DB_PORT: number;
   DB_USERNAME: string;
@@ -62,24 +61,11 @@ const configSchema: Joi.StrictSchemaMap<ConfigProperties> = {
   PORT: Joi.number().port().default(3337),
   JWT_SECRET: Joi.string().required(),
   JWT_EXPIRES_IN: Joi.string().required(),
-  DB_VENDOR: Joi.string().required().valid('postgres'),
   DB_HOST: Joi.string().required(),
-  DB_DATABASE: Joi.string().when('DB_VENDOR', {
-    is: 'postgres',
-    then: Joi.required(),
-  }),
-  DB_USERNAME: Joi.string().when('DB_VENDOR', {
-    is: 'postgres',
-    then: Joi.required(),
-  }),
-  DB_PASSWORD: Joi.string().when('DB_VENDOR', {
-    is: 'postgres',
-    then: Joi.required(),
-  }),
-  DB_PORT: Joi.number().integer().when('DB_VENDOR', {
-    is: 'postgres',
-    then: Joi.required(),
-  }),
+  DB_DATABASE: Joi.string().required(),
+  DB_USERNAME: Joi.string().required(),
+  DB_PASSWORD: Joi.string().required(),
+  DB_PORT: Joi.number().integer().required(),
   DB_LOGGING: Joi.boolean().default(false),
   DB_AUTO_LOAD_MODELS: Joi.boolean().default(false),
 };

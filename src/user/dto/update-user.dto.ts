@@ -1,8 +1,19 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsString } from 'class-validator';
 
-export class UpdateUser {
+export class UpdateUserDto {
   @IsString()
-  readonly firstName?: string;
+  readonly username?: string;
+
+  @IsEmail()
+  readonly email?: string;
+}
+
+export class UpdatePasswordDto {
   @IsString()
-  readonly lastName?: string;
+  readonly password: string;
+}
+
+export class UpdateStatus {
+  @IsEnum(['ACTIVE', 'BLOCKED'])
+  readonly status: string;
 }

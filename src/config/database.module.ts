@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import {
-  SequelizeModule,
-  SequelizeModuleAsyncOptions,
-} from '@nestjs/sequelize';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { User } from 'src/user/user.model';
+import { Auth } from 'src/auth/auth.model';
 import { ConfigProperties } from './config.module';
+import { Company } from 'src/company/company.model';
+import { Person } from 'src/person/person.model';
 
 @Module({
   imports: [
     SequelizeModule.forRootAsync({
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService<ConfigProperties>) => {
         return {
-          models: [User, Comment],
+          models: [User, Auth, Company, Person],
           logging: configService.get('DB_LOGGING'),
           autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS'),
           dialect: 'postgres',
@@ -21,7 +22,7 @@ import { ConfigProperties } from './config.module';
           database: configService.get('DB_DATABASE'),
           username: configService.get('DB_USERNAME'),
           password: configService.get('DB_PASSWORD'),
-        } as SequelizeModuleAsyncOptions;
+        };
       },
       inject: [ConfigService],
     }),

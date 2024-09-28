@@ -1,8 +1,9 @@
+import { InjectModel } from '@nestjs/sequelize';
 import { Injectable, Logger } from '@nestjs/common';
-import { AuthRepositoryInterface } from '../interfaces/auth.repository.interface';
+
 import { Auth } from '../auth.model';
 import { AuthDto } from '../dto/auth.dto';
-import { InjectModel } from '@nestjs/sequelize';
+import { AuthRepositoryInterface } from '../interfaces/auth.repository.interface';
 
 @Injectable()
 export class AuthSequelizeRepository

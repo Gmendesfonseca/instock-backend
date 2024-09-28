@@ -14,10 +14,13 @@ export class User extends Model<User> {
   password: string;
 
   @Column
-  firstName: string;
+  username: string;
 
   @Column
-  lastName: string;
+  status: string;
+
+  @Column
+  type: string;
 
   @Column({ type: DataType.BOOLEAN })
   isVerified: boolean;

@@ -1,12 +1,13 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
-import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
-import { plainToClass } from 'class-transformer';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
-import { UserService } from 'src/user/user.service';
+import { plainToClass } from 'class-transformer';
+import { Injectable, Logger } from '@nestjs/common';
+
+import { AuthDto } from './dto/auth.dto';
 import { User } from 'src/user/user.model';
 import { GenerateAuthDto } from './dto/generate-auth.dto';
+import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
+import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
+import { UserRepositoryInterface } from 'src/user/interfaces/user.sequelize.repository';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   constructor(
     private readonly AuthRepository: AuthRepositoryInterface.AuthRepository,
     private readonly jwtService: JwtService,
-    private readonly userService: UserService,
+    private readonly userRepository: UserRepositoryInterface.UserRepository,
   ) {}
 
   async authenticate(auth: AuthDto) {
@@ -26,7 +27,7 @@ export class AuthService {
 
   async generateAuth(userId: string) {
     this.logger.debug('AuthService.generateAuth: called');
-    const user = await this.userService.findById(userId);
+    const user = await this.userRepository.findOne(userId);
 
     if (!user) {
       return null;
@@ -41,7 +42,7 @@ export class AuthService {
     const payload: JwtPayload = {
       user: {
         id: user.id,
-        name: user.firstName,
+        name: user.username,
         email: user.email,
         type: type(user),
       },

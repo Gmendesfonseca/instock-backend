@@ -1,9 +1,4 @@
-import { IsEmail, IsInt, IsOptional, IsString, IsUUID } from 'class-validator';
-
-export class IdDto {
-  @IsUUID()
-  readonly id: string;
-}
+import { IsEmail, IsInt, IsOptional, IsString } from 'class-validator';
 
 export class LoginDto {
   @IsEmail()
@@ -13,14 +8,16 @@ export class LoginDto {
   readonly password: string;
 }
 
-@IsOptional()
-@IsString()
-readonly search?: string;
+export class PaginationDto {
+  @IsOptional()
+  @IsString()
+  readonly search?: string;
 
-@IsOptional()
-@IsInt()
-readonly page?: number;
+  @IsOptional()
+  @IsInt()
+  readonly page?: number;
 
-@IsOptional()
-@IsInt()
-readonly limit?: number;
+  @IsOptional()
+  @IsInt()
+  readonly limit?: number;
+}

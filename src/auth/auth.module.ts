@@ -1,16 +1,21 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigProperties } from './config.module';
+import { ConfigProperties } from '../config/config.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { JwtStrategy } from 'src/auth/strategy/jwt.strategy';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthController } from 'src/auth/auth.controller';
+import { UsersModule } from 'src/user/user.module';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { Auth } from './auth.model';
+import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
+import { AuthSequelizeRepository } from './repositories/auth.sequelize.repository';
 
 @Module({
   imports: [
     JwtModule.registerAsync({
+      imports: [ConfigModule, UsersModule],
       useFactory: (configService: ConfigService<ConfigProperties>) => {
         return {
           secret: configService.get('JWT_SECRET'),
@@ -22,13 +27,19 @@ import { AuthController } from 'src/auth/auth.controller';
       },
       inject: [ConfigService],
     }),
+    ConfigModule,
+    SequelizeModule.forFeature([Auth]),
+    UsersModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    JwtStrategy,
+    {
+      provide: AuthRepositoryInterface.AuthRepository,
+      useClass: AuthSequelizeRepository,
+    },
     AuthService,
   ],
   controllers: [AuthController],
