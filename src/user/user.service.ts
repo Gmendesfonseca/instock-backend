@@ -3,11 +3,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { User } from 'src/user/user.model';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserSequelizeRepository } from './repositories/user.sequelize.repository';
-import { UserRepositoryInterface } from './interfaces/user.sequelize.repository';
+import { UserRepositoryInterface } from './interfaces/user.repository.interface';
+import { UserServiceInterface } from './interfaces/user.service.interface';
 
 @Injectable()
-export class UserService {
+export class UserService implements UserServiceInterface.UserService {
   private readonly logger = new Logger(UserService.name);
 
   constructor(
@@ -19,29 +19,26 @@ export class UserService {
     return this.usersRepository.findOne(id);
   }
 
-  async create(newUser: CreateUserDto): Promise<User> {
+  async create(newUser: UserServiceInterface.Inputs.createUser): Promise<User> {
     this.logger.debug('UserService.create: Called');
     return await this.usersRepository.create(newUser);
   }
 
-  async update(id: string, updateUser: UpdateUserDto): Promise<User> {
+  async update(
+    updateUser: UserServiceInterface.Inputs.updateUser,
+  ): Promise<UserServiceInterface.Outputs.User> {
     this.logger.debug('UserService.update: Called');
-    return await this.usersRepository.update({
-      id: id,
-      username: updateUser.username,
-      email: updateUser.email,
-    });
+    return await this.usersRepository.update(updateUser);
   }
 
-  async updatePassword(id: string, password: string): Promise<User> {
+  async updatePassword(
+    input: UserServiceInterface.Inputs.updatePassword,
+  ): Promise<UserServiceInterface.Outputs.User> {
     this.logger.debug('UserService.updatePassword: Called');
-    return await this.usersRepository.updatePassword({
-      id: id,
-      password: password,
-    });
+    return await this.usersRepository.updatePassword(input);
   }
 
-  async remove(id: string): Promise<void> {
+  async delete(id: string): Promise<void> {
     this.logger.debug('UserService.remove: Called');
     await this.usersRepository.delete(id);
   }

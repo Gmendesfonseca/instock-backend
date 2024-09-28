@@ -1,42 +1,96 @@
 import { JwtService } from '@nestjs/jwt';
-import { plainToClass } from 'class-transformer';
 import { Injectable, Logger } from '@nestjs/common';
-
-import { AuthDto } from './dto/auth.dto';
 import { User } from 'src/user/user.model';
-import { GenerateAuthDto } from './dto/generate-auth.dto';
 import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
 import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
-import { UserRepositoryInterface } from 'src/user/interfaces/user.sequelize.repository';
+import { UserRepositoryInterface } from 'src/user/interfaces/user.repository.interface';
+import { AuthServiceInterface } from './interfaces/auth.service.interface';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements AuthServiceInterface.AuthService {
   private readonly logger = new Logger(AuthService.name);
 
   constructor(
-    private readonly AuthRepository: AuthRepositoryInterface.AuthRepository,
+    private readonly authRepository: AuthRepositoryInterface.AuthRepository,
     private readonly jwtService: JwtService,
     private readonly userRepository: UserRepositoryInterface.UserRepository,
   ) {}
 
-  async authenticate(auth: AuthDto) {
-    this.logger.debug('AuthService.authenticate: called');
-    const user = await this.AuthRepository.findOne(auth);
-    return user.id;
+  async me({ user }: AuthServiceInterface.Inputs.UserAuth) {
+    this.logger.debug('AuthService.me: called');
+
+    const userModel = await this.userRepository.findOne(user.id);
+    if (!user) {
+      return null;
+    }
+
+    const response: AuthServiceInterface.Outputs.Me = {
+      user_id: user.id,
+      username: userModel.username,
+      name: null,
+      social_name: null,
+      logo: null,
+      type: user.type ? 'PERSON' : 'COMPANY',
+      avatar: null,
+      cover: null,
+      user_config: {
+        id: user.id,
+        user_id: user.id,
+        auth2f: false,
+        default_language: 'pt-BR',
+        default_interface: 'LIGHT',
+        schedule_default: null,
+        created_at: userModel.createdAt,
+        updated_at: userModel.updatedAt,
+        deleted_at: null,
+        default_timezone: 'America/Sao_Paulo',
+        share_my_publications: true,
+      },
+      profile_config: {
+        created_at: '2024-01-30T13:51:30.626000Z',
+        deleted_at: null,
+        id: '4edfb04e-aa4d-4d25-b0e0-e32e5df8cc08',
+        person_id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
+        requests_solicitation: 'ALL',
+        show_friends: 'ALL',
+        updated_at: '2024-01-30T13:51:30.626000Z',
+      },
+      redirects: [],
+      companies: [
+        {
+          avatar: null,
+          id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
+          is_manager_competence: false,
+          is_manager_in_check: false,
+          logo: null,
+          my_collaborator_id: null,
+          name: 'Company',
+        },
+      ],
+    };
+
+    return response;
   }
 
-  async generateAuth(userId: string) {
-    this.logger.debug('AuthService.generateAuth: called');
-    const user = await this.userRepository.findOne(userId);
+  async authenticate(authDto: AuthServiceInterface.Inputs.Authenticate) {
+    this.logger.debug('AuthService.authenticate: called');
+
+    const auth = await this.authRepository.findOne(authDto);
+
+    if (!auth) {
+      return null;
+    }
+
+    const user = await this.userRepository.findOne(auth.userId);
 
     if (!user) {
       return null;
     }
 
     const type = (user: User) => {
-      if (user.person) 'person';
-      if (user.company) 'company';
-      return 'user';
+      if (user.person) 'PERSON';
+      if (user.company) 'COMPANY';
+      return '';
     };
 
     const payload: JwtPayload = {
@@ -48,14 +102,12 @@ export class AuthService {
       },
     };
 
-    const response = {
-      token_type: 'Bearer',
+    const response: AuthServiceInterface.Outputs.Auth = {
       access_token: this.jwtService.sign(payload),
+      token_type: 'Bearer',
       expires_in: process.env.JWT_EXPIRES_IN,
     };
 
-    return plainToClass(GenerateAuthDto, response, {
-      excludeExtraneousValues: true,
-    });
+    return response;
   }
 }

@@ -5,30 +5,31 @@ import {
   HttpCode,
   Logger,
   Post,
-  Query,
+  Req,
 } from '@nestjs/common';
+import { Request } from 'express';
 
-import { AuthDto } from './dto/auth.dto';
-import { AuthService } from './auth.service';
+import { AuthenticateDto } from './dto/authenticate.dto';
+import { AuthServiceInterface } from './interfaces/auth.service.interface';
 
 @Controller()
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly authService: AuthService) {}
-
-  @Post('auth')
-  @HttpCode(200)
-  authenticate(@Body() authDto: AuthDto) {
-    this.logger.debug('AuthController.authenticate: Called');
-    return this.authService.authenticate(authDto);
-  }
+  constructor(private readonly authService: AuthServiceInterface.AuthService) {}
 
   @Get('me')
   @HttpCode(200)
-  async getToken(@Query('userId') userId: string): Promise<any> {
+  me(@Req() request: Request) {
+    this.logger.debug('AuthController.authenticate: Called');
+    const { auth } = request;
+    return this.authService.me(auth);
+  }
+
+  @Post('auth')
+  @HttpCode(200)
+  authenticate(@Body() authDto: AuthenticateDto) {
     this.logger.debug('AuthController.getToken: Called');
-    const token = await this.authService.generateAuth(userId);
-    return { access_token: token };
+    return this.authService.authenticate(authDto);
   }
 }

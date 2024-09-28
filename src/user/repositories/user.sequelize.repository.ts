@@ -1,5 +1,5 @@
 import { User } from '../user.model';
-import { UserRepositoryInterface } from '../interfaces/user.sequelize.repository';
+import { UserRepositoryInterface } from '../interfaces/user.repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 

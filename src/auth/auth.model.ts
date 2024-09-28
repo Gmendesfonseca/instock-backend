@@ -30,7 +30,7 @@ export class Auth extends Model<Auth> {
 
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userId: string;
 
   @BelongsTo(() => User)
   user: User;

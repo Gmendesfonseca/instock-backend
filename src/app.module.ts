@@ -8,6 +8,7 @@ import { LimitModule } from 'src/config/limit.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { DatabaseModule } from 'src/config/database.module';
 import { PaginationMiddleware } from 'src/middleware/pagination/pagination.middleware';
+import { SwaggerModule } from '@nestjs/swagger';
 
 @Module({
   imports: [

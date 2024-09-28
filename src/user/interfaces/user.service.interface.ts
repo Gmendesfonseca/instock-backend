@@ -1,0 +1,46 @@
+import { User } from '../user.model';
+
+export namespace UserServiceInterface {
+  export namespace Inputs {
+    export interface createUser {
+      email: string;
+      password: string;
+      username: string;
+      status: string;
+      type: string;
+    }
+
+    export interface updateUser {
+      id: string;
+      username: string;
+      email: string;
+    }
+
+    export interface updatePassword {
+      id: string;
+      password: string;
+    }
+
+    export interface deleteUser {
+      id: string;
+    }
+  }
+
+  export namespace Outputs {
+    export interface User {
+      id: string;
+      email: string;
+      username: string;
+      status: string;
+      type: string;
+    }
+  }
+
+  export abstract class UserService {
+    abstract findOne(id: string): Promise<User>;
+    abstract create(user: Inputs.createUser): Promise<Outputs.User>;
+    abstract update(user: Inputs.updateUser): Promise<Outputs.User>;
+    abstract updatePassword(user: Inputs.updatePassword): Promise<Outputs.User>;
+    abstract delete(id: string): Promise<void>;
+  }
+}

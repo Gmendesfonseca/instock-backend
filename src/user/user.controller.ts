@@ -13,13 +13,13 @@ import {
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto, UpdateUserDto } from './dto/update-user.dto';
-import { UserService } from './user.service';
+import { UserServiceInterface } from './interfaces/user.service.interface';
 
 @Controller('/users')
 export class UsersController {
   private readonly logger = new Logger(UsersController.name);
 
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserServiceInterface.UserService) {}
 
   @Get(':id')
   @HttpCode(200)
@@ -39,26 +39,30 @@ export class UsersController {
   @HttpCode(204)
   updateUser(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() body: UpdateUserDto,
+    @Body() { email, username }: UpdateUserDto,
   ) {
     this.logger.debug('UsersController.updateUser: Called');
-    return this.userService.update(id, body);
+    return this.userService.update({
+      id,
+      email,
+      username,
+    });
   }
 
-  @Put(':id/password/:password')
+  @Put(':id/password')
   @HttpCode(204)
   updatePassword(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() { password }: UpdatePasswordDto,
   ) {
     this.logger.debug('UsersController.updatePassword: Called');
-    return this.userService.updatePassword(id, password);
+    return this.userService.updatePassword({ id, password });
   }
 
   @Delete(':id')
   @HttpCode(204)
   deleteUser(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('UsersController.deleteUser: Called');
-    return this.userService.remove(id);
+    return this.userService.delete(id);
   }
 }

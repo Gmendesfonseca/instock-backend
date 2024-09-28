@@ -14,11 +14,11 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('InStock API')
-    .setDescription('A description of your API')
+    .setDescription('List of available endpoints for InStock API')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-docs', app, document);
+  SwaggerModule.setup('docs', app, document);
 
   const configService = app.get(ConfigService);
   const logLevels = configService.get<LogLevel[]>('LOG_LEVEL');
