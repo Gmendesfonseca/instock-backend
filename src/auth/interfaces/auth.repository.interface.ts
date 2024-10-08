@@ -1,5 +1,4 @@
-import { Auth } from 'src/auth/auth.model';
-
+import { User } from 'src/user/user.model';
 export namespace AuthRepositoryInterface {
   export interface Authenticate {
     email: string;
@@ -7,6 +6,6 @@ export namespace AuthRepositoryInterface {
   }
 
   export abstract class AuthRepository {
-    abstract findOne(credentials: Authenticate): Promise<Auth>;
+    abstract findOne(credentials: Authenticate): Promise<User>;
   }
 }

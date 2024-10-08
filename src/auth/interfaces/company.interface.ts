@@ -6,4 +6,9 @@ export interface company {
   logo: null;
   my_collaborator_id: string;
   name: string;
+  user: {
+    id: string;
+    username: string;
+  };
+  user_id: string;
 }

@@ -24,6 +24,12 @@ async function bootstrap() {
   const logLevels = configService.get<LogLevel[]>('LOG_LEVEL');
   app.useLogger(new ConsoleLogger('InStock Backend', { logLevels }));
 
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
+
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: '1',

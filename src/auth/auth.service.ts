@@ -1,6 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from 'src/user/user.model';
 import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
 import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
 import { UserRepositoryInterface } from 'src/user/interfaces/user.repository.interface';
@@ -26,13 +25,14 @@ export class AuthService implements AuthServiceInterface.AuthService {
 
     const response: AuthServiceInterface.Outputs.Me = {
       user_id: user.id,
+      name: userModel.name,
+      avatar: userModel.avatar,
+      logo: userModel.logo,
       username: userModel.username,
-      name: null,
-      social_name: null,
-      logo: null,
-      type: user.type ? 'PERSON' : 'COMPANY',
-      avatar: null,
-      cover: null,
+      email: userModel.email,
+      type: userModel.type,
+      profile_id: userModel.profile_id,
+      social_name: userModel.social_name,
       user_config: {
         id: user.id,
         user_id: user.id,
@@ -58,13 +58,18 @@ export class AuthService implements AuthServiceInterface.AuthService {
       redirects: [],
       companies: [
         {
-          avatar: null,
           id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
+          avatar: null,
+          user_id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
           is_manager_competence: false,
           is_manager_in_check: false,
           logo: null,
           my_collaborator_id: null,
           name: 'Company',
+          user: {
+            id: user.id,
+            username: userModel.username,
+          },
         },
       ],
     };
@@ -81,24 +86,18 @@ export class AuthService implements AuthServiceInterface.AuthService {
       return null;
     }
 
-    const user = await this.userRepository.findOne(auth.userId);
+    const user = await this.userRepository.findOne(auth.id);
 
     if (!user) {
       return null;
     }
-
-    const type = (user: User) => {
-      if (user.person) 'PERSON';
-      if (user.company) 'COMPANY';
-      return '';
-    };
 
     const payload: JwtPayload = {
       user: {
         id: user.id,
         name: user.username,
         email: user.email,
-        type: type(user),
+        type: user.type,
       },
     };
 
