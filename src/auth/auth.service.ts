@@ -13,7 +13,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
     private readonly authRepository: AuthRepositoryInterface.AuthRepository,
     private readonly jwtService: JwtService,
     private readonly userRepository: UserRepositoryInterface.UserRepository,
-  ) {}
+  ) { }
 
   async me({ user }: AuthServiceInterface.Inputs.UserAuth) {
     this.logger.debug('AuthService.me: called');
@@ -25,14 +25,14 @@ export class AuthService implements AuthServiceInterface.AuthService {
 
     const response: AuthServiceInterface.Outputs.Me = {
       user_id: user.id,
-      name: userModel.name,
-      avatar: userModel.avatar,
-      logo: userModel.logo,
+      name: userModel.username,
+      avatar: userModel.person.avatar,
+      // logo: userModel.logo,
       username: userModel.username,
       email: userModel.email,
       type: userModel.type,
-      profile_id: userModel.profile_id,
-      social_name: userModel.social_name,
+      profile_id: userModel.person.id,
+      social_name: userModel.person.name,
       user_config: {
         id: user.id,
         user_id: user.id,
@@ -55,7 +55,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
         show_friends: 'ALL',
         updated_at: '2024-01-30T13:51:30.626000Z',
       },
-      redirects: [],
+      // redirects: [],
       companies: [
         {
           id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
@@ -93,9 +93,10 @@ export class AuthService implements AuthServiceInterface.AuthService {
     }
 
     const payload: JwtPayload = {
+      sub: user.id,
       user: {
         id: user.id,
-        name: user.username,
+        username: user.username,
         email: user.email,
         type: user.type,
       },

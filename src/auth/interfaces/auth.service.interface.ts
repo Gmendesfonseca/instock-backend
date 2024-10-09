@@ -10,20 +10,20 @@ export namespace AuthServiceInterface {
 
     export interface UserAuth {
       sub: string;
-      exp: number;
+      exp?: number;
       user: {
         id: string;
         username: string;
         email: string;
         type: string;
-        profile_id: string;
-        config: {
-          auth2f: boolean;
-          default_language: string;
-          default_interface: string;
-          schedule_default: string;
-          master: boolean;
-        };
+        // profile_id: string;
+        // config: {
+        //   auth2f: boolean;
+        //   default_language: string;
+        //   default_interface: string;
+        //   schedule_default: string;
+        //   master: boolean;
+        // };
       };
     }
   }
@@ -38,9 +38,10 @@ export namespace AuthServiceInterface {
     export interface Me {
       user_id: string;
       avatar: string;
-      logo: string;
+      // logo: string;
       name: string;
       username: string;
+      social_name: string;
       email: string;
       type: string;
       profile_id: string;

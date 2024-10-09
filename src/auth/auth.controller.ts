@@ -16,20 +16,20 @@ import { AuthServiceInterface } from './interfaces/auth.service.interface';
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly authService: AuthServiceInterface.AuthService) {}
-
-  @Get('me')
-  @HttpCode(200)
-  me(@Req() request: Request) {
-    this.logger.debug('AuthController.authenticate: Called');
-    const { auth } = request;
-    return this.authService.me(auth);
-  }
+  constructor(private readonly authService: AuthServiceInterface.AuthService) { }
 
   @Post('auth')
   @HttpCode(200)
   authenticate(@Body() authDto: AuthenticateDto) {
-    this.logger.debug('AuthController.getToken: Called');
+    this.logger.debug('AuthController.authenticate: Called');
     return this.authService.authenticate(authDto);
+  }
+
+  @Get('me')
+  @HttpCode(200)
+  me(@Req() request: Request) {
+    this.logger.debug('AuthController.me: Called');
+    const { auth } = request;
+    return this.authService.me(auth);
   }
 }
