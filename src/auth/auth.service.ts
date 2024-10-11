@@ -27,7 +27,6 @@ export class AuthService implements AuthServiceInterface.AuthService {
       user_id: user.id,
       name: userModel.username,
       avatar: userModel.person.avatar,
-      // logo: userModel.logo,
       username: userModel.username,
       email: userModel.email,
       type: userModel.type,
@@ -47,31 +46,29 @@ export class AuthService implements AuthServiceInterface.AuthService {
         share_my_publications: true,
       },
       profile_config: {
-        created_at: '2024-01-30T13:51:30.626000Z',
+        created_at: userModel.person.createdAt,
         deleted_at: null,
-        id: '4edfb04e-aa4d-4d25-b0e0-e32e5df8cc08',
-        person_id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
+        id: userModel.id,
+        person_id: userModel.person.id,
         requests_solicitation: 'ALL',
         show_friends: 'ALL',
-        updated_at: '2024-01-30T13:51:30.626000Z',
+        updated_at: userModel.person.updatedAt,
       },
-      // redirects: [],
-      companies: [
-        {
-          id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
-          avatar: null,
-          user_id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
-          is_manager_competence: false,
-          is_manager_in_check: false,
-          logo: null,
-          my_collaborator_id: null,
-          name: 'Company',
-          user: {
-            id: user.id,
-            username: userModel.username,
-          },
+      companies:
+      {
+        id: userModel.company.id,
+        avatar: null,
+        user_id: userModel.company.userId,
+        is_manager_competence: false,
+        is_manager_in_check: false,
+        logo: null,
+        my_collaborator_id: null,
+        name: userModel.company.name,
+        user: {
+          id: userModel.company.userId,
+          username: userModel.username,
         },
-      ],
+      },
     };
 
     return response;

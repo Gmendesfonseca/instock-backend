@@ -16,14 +16,6 @@ export namespace AuthServiceInterface {
         username: string;
         email: string;
         type: string;
-        // profile_id: string;
-        // config: {
-        //   auth2f: boolean;
-        //   default_language: string;
-        //   default_interface: string;
-        //   schedule_default: string;
-        //   master: boolean;
-        // };
       };
     }
   }
@@ -38,7 +30,6 @@ export namespace AuthServiceInterface {
     export interface Me {
       user_id: string;
       avatar: string;
-      // logo: string;
       name: string;
       username: string;
       social_name: string;
@@ -47,7 +38,7 @@ export namespace AuthServiceInterface {
       profile_id: string;
       user_config: user_config;
       profile_config: profile_config_company | profile_config_person;
-      companies: company[];
+      companies: company;
     }
   }
 
