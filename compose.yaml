@@ -6,16 +6,17 @@ services:
             dockerfile: Dockerfile.local
         ports:
           - 5000:5000
-        networks:
-          - instock-network
         volumes:
           - ./:/usr/src/
         environment:
           - PG_HOST=postgres
           - PG_PORT=5432
-          - PG_USER=instockmaster
-          - PG_PASSWORD=instock-pass
-          - PG_DB_NAME=local
+          - PG_USER=inciclemaster
+          - PG_PASSWORD=incicle-pass
+          - PG_DB_NAME=incicle
+          - PORT=5000
+        networks:
+          - laravel-network
 networks:
-    instock-network:
-        external: true
+  laravel-network:
+      external: true

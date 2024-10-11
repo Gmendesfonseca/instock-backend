@@ -1,5 +1,4 @@
 import { company } from './company.interface';
-import { profile_config } from './profile_config.interface';
 import { user_config } from './user_config.interface';
 
 export namespace AuthServiceInterface {
@@ -10,9 +9,11 @@ export namespace AuthServiceInterface {
     }
 
     export interface UserAuth {
+      sub: string;
+      exp?: number;
       user: {
         id: string;
-        name: string;
+        username: string;
         email: string;
         type: string;
       };
@@ -28,17 +29,16 @@ export namespace AuthServiceInterface {
 
     export interface Me {
       user_id: string;
+      avatar: string;
+      name: string;
       username: string;
-      name: null;
-      social_name: null;
-      logo: null;
-      type: 'PERSON' | 'COMPANY';
-      avatar: null;
-      cover: null;
+      social_name: string;
+      email: string;
+      type: string;
+      profile_id: string;
       user_config: user_config;
-      profile_config: profile_config;
-      redirects: [];
-      companies: company[];
+      profile_config: profile_config_company | profile_config_person;
+      companies: company;
     }
   }
 

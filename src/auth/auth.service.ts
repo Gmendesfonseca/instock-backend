@@ -1,6 +1,5 @@
 import { JwtService } from '@nestjs/jwt';
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from 'src/user/user.model';
 import { JwtPayload } from 'src/interfaces/jwt-payload.interface';
 import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
 import { UserRepositoryInterface } from 'src/user/interfaces/user.repository.interface';
@@ -14,7 +13,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
     private readonly authRepository: AuthRepositoryInterface.AuthRepository,
     private readonly jwtService: JwtService,
     private readonly userRepository: UserRepositoryInterface.UserRepository,
-  ) {}
+  ) { }
 
   async me({ user }: AuthServiceInterface.Inputs.UserAuth) {
     this.logger.debug('AuthService.me: called');
@@ -26,13 +25,13 @@ export class AuthService implements AuthServiceInterface.AuthService {
 
     const response: AuthServiceInterface.Outputs.Me = {
       user_id: user.id,
+      name: userModel.username,
+      avatar: userModel.person.avatar,
       username: userModel.username,
-      name: null,
-      social_name: null,
-      logo: null,
-      type: user.type ? 'PERSON' : 'COMPANY',
-      avatar: null,
-      cover: null,
+      email: userModel.email,
+      type: userModel.type,
+      profile_id: userModel.person.id,
+      social_name: userModel.person.name,
       user_config: {
         id: user.id,
         user_id: user.id,
@@ -47,26 +46,29 @@ export class AuthService implements AuthServiceInterface.AuthService {
         share_my_publications: true,
       },
       profile_config: {
-        created_at: '2024-01-30T13:51:30.626000Z',
+        created_at: userModel.person.createdAt,
         deleted_at: null,
-        id: '4edfb04e-aa4d-4d25-b0e0-e32e5df8cc08',
-        person_id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
+        id: userModel.id,
+        person_id: userModel.person.id,
         requests_solicitation: 'ALL',
         show_friends: 'ALL',
-        updated_at: '2024-01-30T13:51:30.626000Z',
+        updated_at: userModel.person.updatedAt,
       },
-      redirects: [],
-      companies: [
-        {
-          avatar: null,
-          id: '75d4635b-24c8-4783-83e8-5f5ddb55fe95',
-          is_manager_competence: false,
-          is_manager_in_check: false,
-          logo: null,
-          my_collaborator_id: null,
-          name: 'Company',
+      companies:
+      {
+        id: userModel.company.id,
+        avatar: null,
+        user_id: userModel.company.userId,
+        is_manager_competence: false,
+        is_manager_in_check: false,
+        logo: null,
+        my_collaborator_id: null,
+        name: userModel.company.name,
+        user: {
+          id: userModel.company.userId,
+          username: userModel.username,
         },
-      ],
+      },
     };
 
     return response;
@@ -81,24 +83,19 @@ export class AuthService implements AuthServiceInterface.AuthService {
       return null;
     }
 
-    const user = await this.userRepository.findOne(auth.userId);
+    const user = await this.userRepository.findOne(auth.id);
 
     if (!user) {
       return null;
     }
 
-    const type = (user: User) => {
-      if (user.person) 'PERSON';
-      if (user.company) 'COMPANY';
-      return '';
-    };
-
     const payload: JwtPayload = {
+      sub: user.id,
       user: {
         id: user.id,
-        name: user.username,
+        username: user.username,
         email: user.email,
-        type: type(user),
+        type: user.type,
       },
     };
 

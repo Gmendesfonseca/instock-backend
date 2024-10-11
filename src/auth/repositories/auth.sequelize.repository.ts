@@ -1,7 +1,7 @@
 import { InjectModel } from '@nestjs/sequelize';
 import { Injectable, Logger } from '@nestjs/common';
 
-import { Auth } from '../auth.model';
+import { User } from 'src/user/user.model';
 import { AuthenticateDto } from '../dto/authenticate.dto';
 import { AuthRepositoryInterface } from '../interfaces/auth.repository.interface';
 
@@ -11,13 +11,13 @@ export class AuthSequelizeRepository
 {
   private readonly logger = new Logger(AuthSequelizeRepository.name);
 
-  constructor(@InjectModel(Auth) private authModel: typeof Auth) {}
+  constructor(@InjectModel(User) private userModel: typeof User) {}
 
-  async findOne({ email, password }: AuthenticateDto): Promise<Auth> {
+  async findOne({ email, password }: AuthenticateDto): Promise<User> {
     this.logger.debug('CommentSequelizeRepository.findOne: called');
-    return this.authModel.findOne({
+    return this.userModel.findOne({
       where: { email, password },
-      include: [Auth],
+      include: [User],
     });
   }
 }

@@ -7,11 +7,11 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthController } from 'src/auth/auth.controller';
 import { UsersModule } from 'src/user/user.module';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { Auth } from './auth.model';
 import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
 import { AuthSequelizeRepository } from './repositories/auth.sequelize.repository';
 import { AuthServiceInterface } from './interfaces/auth.service.interface';
+import { UserRepositoryInterface } from 'src/user/interfaces/user.repository.interface';
+import { UserSequelizeRepository } from 'src/user/repositories/user.sequelize.repository';
 
 @Module({
   imports: [
@@ -28,7 +28,6 @@ import { AuthServiceInterface } from './interfaces/auth.service.interface';
       },
       inject: [ConfigService],
     }),
-    SequelizeModule.forFeature([Auth]),
     ConfigModule,
     UsersModule,
   ],
@@ -44,6 +43,10 @@ import { AuthServiceInterface } from './interfaces/auth.service.interface';
     {
       provide: AuthServiceInterface.AuthService,
       useClass: AuthService,
+    },
+    {
+      provide: UserRepositoryInterface.UserRepository,
+      useClass: UserSequelizeRepository,
     },
   ],
   controllers: [AuthController],
