@@ -4,20 +4,21 @@ import { TagServiceInterface } from './interfaces/tag.service.interface';
 import { TagService } from './tag.service';
 import { TagRepositoryInterface } from './interfaces/tag.repository.interface';
 import { TagSequelizeRepository } from './repositories/tag.sequelize.repository';
+import { Tag } from './tag.model';
+import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
-  imports: [],
+  imports: [SequelizeModule.forFeature([Tag])],
   providers: [
-    {
-      provide: TagRepositoryInterface.TagRepository,
-      useClass: TagSequelizeRepository,
-    },
     {
       provide: TagServiceInterface.TagService,
       useClass: TagService,
     },
+    {
+      provide: TagRepositoryInterface.TagRepository,
+      useClass: TagSequelizeRepository,
+    },
   ],
   controllers: [TagController],
-  exports: [],
 })
 export class TagModule {}

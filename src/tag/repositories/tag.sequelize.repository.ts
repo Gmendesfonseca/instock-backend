@@ -19,37 +19,37 @@ export class TagSequelizeRepository
     });
   }
 
-  async findByProduct(product_id: string): Promise<Tag> {
+  async findByProduct(productId: string): Promise<Tag> {
     this.logger.debug('TagSequelizeRepository.findByProduct: called');
     return this.tagModel.findOne({
-      where: { product_id },
+      where: { productId },
       include: [Tag],
     });
   }
 
-  async findByCompany(company_id: string): Promise<Tag[]> {
+  async findByCompany(companyId: string): Promise<Tag[]> {
     this.logger.debug('TagSequelizeRepository.findByCompany: called');
     return this.tagModel.findAll({
-      where: { company_id },
+      where: { companyId },
       include: [Tag],
     });
   }
 
   async create({
     rfid,
-    product_id,
-    company_id,
+    productId,
+    companyId,
   }: TagRepositoryInterface.Inputs.Create): Promise<Tag> {
     this.logger.debug('TagSequelizeRepository.create: called');
-    return this.tagModel.create({ rfid, product_id, company_id });
+    return this.tagModel.create({ rfid, productId, companyId });
   }
 
   async update({
     rfid,
-    product_id,
+    productId,
   }: TagRepositoryInterface.Inputs.Update): Promise<void> {
     this.logger.debug('TagSequelizeRepository.update: called');
-    this.tagModel.update({ product_id }, { where: { rfid } });
+    this.tagModel.update({ productId }, { where: { rfid } });
   }
 
   async delete(rfid: string): Promise<void> {

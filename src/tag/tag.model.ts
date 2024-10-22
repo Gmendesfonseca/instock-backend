@@ -8,6 +8,6 @@ import { Model, Table } from 'sequelize-typescript';
 })
 export class Tag extends Model<Tag> {
   rfid: string;
-  product_id: string;
-  company_id: string;
+  productId: string;
+  companyId: string;
 }

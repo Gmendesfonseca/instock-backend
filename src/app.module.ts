@@ -9,6 +9,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { DatabaseModule } from 'src/config/database.module';
 import { PaginationMiddleware } from 'src/middleware/pagination/pagination.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -18,6 +19,8 @@ import { SwaggerModule } from '@nestjs/swagger';
     DatabaseModule,
     JwtModule,
     UsersModule,
+    TagModule,
+    SwaggerModule,
   ],
   controllers: [],
   providers: [

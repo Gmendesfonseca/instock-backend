@@ -1,34 +1,39 @@
 import { User } from '../user.model';
 
 export namespace UserRepositoryInterface {
-  export interface createUser {
-    email: string;
-    password: string;
-    username: string;
-    status: string;
-    type: string;
-  }
+  export namespace Inputs {
+    export interface findOneByCredentials {
+      email: string;
+      password: string;
+    }
+    export interface createUser {
+      email: string;
+      password: string;
+      username: string;
+      status: string;
+      type: string;
+    }
 
-  export interface updateUser {
-    id: string;
-    username: string;
-    email: string;
-  }
+    export interface updateUser {
+      id: string;
+      username: string;
+      email: string;
+    }
 
-  export interface updatePassword {
-    id: string;
-    password: string;
-  }
-
-  export interface deleteUser {
-    id: string;
+    export interface updatePassword {
+      id: string;
+      password: string;
+    }
   }
 
   export abstract class UserRepository {
     abstract findOne(id: string): Promise<User>;
-    abstract create(user: createUser): Promise<User>;
-    abstract update(user: updateUser): Promise<User>;
-    abstract updatePassword(user: updatePassword): Promise<User>;
+    abstract findOneByCredentials(
+      credentials: Inputs.findOneByCredentials,
+    ): Promise<User>;
+    abstract create(user: Inputs.createUser): Promise<User>;
+    abstract update(user: Inputs.updateUser): Promise<User>;
+    abstract updatePassword(user: Inputs.updatePassword): Promise<User>;
     abstract delete(id: string): Promise<void>;
   }
 }

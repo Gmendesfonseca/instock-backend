@@ -5,43 +5,43 @@ export namespace TagServiceInterface {
     }
 
     export interface FindByProduct {
-      product_id: string;
+      productId: string;
     }
 
     export interface FindByCompany {
-      company_id: string;
+      companyId: string;
     }
 
     export interface Create {
       rfid: string;
-      product_id: string;
-      company_id: string;
+      productId: string;
+      companyId: string;
     }
 
     export interface Update {
       rfid: string;
-      product_id: string;
+      productId: string;
     }
   }
 
   export namespace Outputs {
     export interface Tag {
       rfid: string;
-      product_id: string;
-      company_id: string;
+      productId: string;
+      companyId: string;
     }
   }
 
   export abstract class TagService {
     abstract findOne(rfid: Inputs.FindOne): Promise<Outputs.Tag>;
     abstract findByProduct(
-      product_id: Inputs.FindByProduct,
+      productId: Inputs.FindByProduct,
     ): Promise<Outputs.Tag>;
     abstract findByCompany(
-      company_id: Inputs.FindByCompany,
+      companyId: Inputs.FindByCompany,
     ): Promise<Outputs.Tag[]>;
     abstract create(body: Inputs.Create): Promise<Outputs.Tag>;
-    abstract update({ rfid, product_id }: Inputs.Update): Promise<void>;
+    abstract update({ rfid, productId }: Inputs.Update): Promise<void>;
     abstract delete(rfid: string): Promise<void>;
   }
 }

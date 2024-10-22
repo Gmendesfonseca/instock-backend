@@ -17,36 +17,36 @@ export class TagService implements TagServiceInterface.TagService {
     return this.tagRepository.findOne(rfid);
   }
   async findByProduct({
-    product_id,
+    productId,
   }: TagServiceInterface.Inputs.FindByProduct): Promise<TagServiceInterface.Outputs.Tag> {
     this.logger.log('TagService.findByProduct: called');
-    return this.tagRepository.findByProduct(product_id);
+    return this.tagRepository.findByProduct(productId);
   }
 
   async findByCompany({
-    company_id,
+    companyId,
   }: TagServiceInterface.Inputs.FindByCompany): Promise<
     TagServiceInterface.Outputs.Tag[]
   > {
     this.logger.log('TagService.findByCompany: called');
-    return this.tagRepository.findByCompany(company_id);
+    return this.tagRepository.findByCompany(companyId);
   }
 
   async create({
     rfid,
-    product_id,
-    company_id,
+    productId,
+    companyId,
   }: TagServiceInterface.Inputs.Create): Promise<TagServiceInterface.Outputs.Tag> {
     this.logger.log('TagService.create: called');
-    return this.tagRepository.create({ rfid, product_id, company_id });
+    return this.tagRepository.create({ rfid, productId, companyId });
   }
 
   async update({
     rfid,
-    product_id,
+    productId,
   }: TagServiceInterface.Inputs.Update): Promise<void> {
     this.logger.log('TagService.update: called');
-    return this.tagRepository.update({ rfid, product_id });
+    return this.tagRepository.update({ rfid, productId });
   }
 
   async delete(rfid: string): Promise<void> {

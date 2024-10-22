@@ -38,7 +38,7 @@ export namespace AuthServiceInterface {
       profile_id: string;
       user_config: user_config;
       profile_config: profile_config_company | profile_config_person;
-      companies: company;
+      companies: company[];
     }
   }
 

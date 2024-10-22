@@ -7,8 +7,6 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { AuthService } from 'src/auth/auth.service';
 import { AuthController } from 'src/auth/auth.controller';
 import { UsersModule } from 'src/user/user.module';
-import { AuthRepositoryInterface } from './interfaces/auth.repository.interface';
-import { AuthSequelizeRepository } from './repositories/auth.sequelize.repository';
 import { AuthServiceInterface } from './interfaces/auth.service.interface';
 import { UserRepositoryInterface } from 'src/user/interfaces/user.repository.interface';
 import { UserSequelizeRepository } from 'src/user/repositories/user.sequelize.repository';
@@ -16,7 +14,7 @@ import { UserSequelizeRepository } from 'src/user/repositories/user.sequelize.re
 @Module({
   imports: [
     JwtModule.registerAsync({
-      imports: [ConfigModule, UsersModule],
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService<ConfigProperties>) => {
         return {
           secret: configService.get('JWT_SECRET'),
@@ -37,24 +35,10 @@ import { UserSequelizeRepository } from 'src/user/repositories/user.sequelize.re
       useClass: AuthGuard,
     },
     {
-      provide: AuthRepositoryInterface.AuthRepository,
-      useClass: AuthSequelizeRepository,
-    },
-    {
       provide: AuthServiceInterface.AuthService,
       useClass: AuthService,
-    },
-    {
-      provide: UserRepositoryInterface.UserRepository,
-      useClass: UserSequelizeRepository,
     },
   ],
   controllers: [AuthController],
-  exports: [
-    {
-      provide: AuthServiceInterface.AuthService,
-      useClass: AuthService,
-    },
-  ],
 })
 export class AuthModule {}

@@ -11,21 +11,23 @@ import { Request } from 'express';
 
 import { AuthenticateDto } from './dto/authenticate.dto';
 import { AuthServiceInterface } from './interfaces/auth.service.interface';
+import { Public } from 'src/utils/constants';
 
 @Controller()
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);
 
-  constructor(private readonly authService: AuthServiceInterface.AuthService) { }
+  constructor(private readonly authService: AuthServiceInterface.AuthService) {}
 
-  @Post('auth')
+  @Public()
+  @Post('/auth')
   @HttpCode(200)
   authenticate(@Body() authDto: AuthenticateDto) {
     this.logger.debug('AuthController.authenticate: Called');
     return this.authService.authenticate(authDto);
   }
 
-  @Get('me')
+  @Get('/me')
   @HttpCode(200)
   me(@Req() request: Request) {
     this.logger.debug('AuthController.me: Called');
