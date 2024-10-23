@@ -27,7 +27,7 @@ export namespace ProjectRepositoryInterface {
   }
 
   export abstract class ProjectRepository {
-    abstract findAll(): Promise<Project[]>;
+    abstract findAll(companyId: string): Promise<Project[]>;
     abstract findOne(id: string): Promise<Project>;
     abstract create(project: createProject): Promise<Project>;
     abstract update(project: updateProject): Promise<Project>;

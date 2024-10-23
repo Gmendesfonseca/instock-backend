@@ -1,4 +1,5 @@
 import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript';
+import { Company } from 'src/company/company.model';
 
 @Table({ tableName: 'instock_projects', underscored: true, paranoid: true })
 export class Project extends Model<Project> {
@@ -25,4 +26,7 @@ export class Project extends Model<Project> {
 
   @Column
   client: string;
+
+  @HasOne(() => Company)
+  company: Company;
 }
