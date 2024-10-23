@@ -13,7 +13,7 @@ import {
 import { TagServiceInterface } from './interfaces/tag.service.interface';
 import { CreateTagDto } from './dto/create-tag.dto';
 
-@Controller('/tag')
+@Controller('/tags')
 export class TagController {
   private readonly logger = new Logger(TagController.name);
 
@@ -26,25 +26,25 @@ export class TagController {
     return this.tagService.findOne({ rfid });
   }
 
-  @Get('/product/:product_id')
+  @Get('/products/:product_id')
   @HttpCode(200)
   async findByProduct(
-    @Param('product_id', new ParseUUIDPipe()) product_id: string,
+    @Param('product_id', new ParseUUIDPipe()) productId: string,
   ) {
     this.logger.log('TagController.findByProduct: called');
-    return this.tagService.findByProduct({ product_id });
+    return this.tagService.findByProduct({ productId });
   }
 
-  @Get('/company/:company_id')
+  @Get('/companies/:company_id')
   @HttpCode(200)
   async findByCompany(
-    @Param('company_id', new ParseUUIDPipe()) company_id: string,
+    @Param('company_id', new ParseUUIDPipe()) companyId: string,
   ) {
     this.logger.log('TagController.findByCompany: called');
-    return this.tagService.findByCompany({ company_id });
+    return this.tagService.findByCompany({ companyId });
   }
 
-  @Post('/create')
+  @Post('/')
   @HttpCode(201)
   async create(@Body() body: CreateTagDto) {
     this.logger.log('TagController.create: called');
@@ -55,10 +55,10 @@ export class TagController {
   @HttpCode(204)
   async update(
     @Param('rfid', new ParseUUIDPipe()) rfid: string,
-    @Body() product_id: string,
+    @Body() productId: string,
   ) {
     this.logger.log('TagController.update: called');
-    return this.tagService.update({ rfid, product_id });
+    return this.tagService.update({ rfid, productId });
   }
 
   @Delete('/:rfid')

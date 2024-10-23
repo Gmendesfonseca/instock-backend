@@ -4,7 +4,7 @@ export class CreateTagDto {
   @IsString()
   readonly rfid: string;
   @IsString()
-  readonly product_id: string;
+  readonly productId: string;
   @IsString()
-  readonly company_id: string;
+  readonly companyId: string;
 }

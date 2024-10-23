@@ -36,20 +36,20 @@ describe('TagController (e2e)', () => {
     return request(app.getHttpServer()).get('/tag/1234567890').expect(200);
   });
 
-  it('/tag/product/:product_id (GET)', () => {
+  it('/tag/products/:product_id (GET)', () => {
     return request(app.getHttpServer())
-      .get('/tag/product/1234567890')
+      .get('/tag/products/1234567890')
       .expect(200);
   });
 
-  it('/tag/company/:company_id (GET)', () => {
+  it('/tag/companies/:company_id (GET)', () => {
     return request(app.getHttpServer())
       .get('/tag/company/1234567890')
       .expect(200);
   });
 
-  it('/tag/create (POST)', () => {
-    return request(app.getHttpServer()).post('/tag/create').expect(201);
+  it('/tag (POST)', () => {
+    return request(app.getHttpServer()).post('/tag').expect(201);
   });
 
   it('/tag/:rfid (PUT)', () => {

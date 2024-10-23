@@ -28,7 +28,7 @@ export class UsersController {
     return this.userService.findOne(id);
   }
 
-  @Post('/create')
+  @Post('/')
   @HttpCode(201)
   createUser(@Body() body: CreateUserDto) {
     this.logger.debug('UsersController.createUser: Called');
