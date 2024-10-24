@@ -37,8 +37,8 @@ export namespace UserServiceInterface {
   export abstract class UserService {
     abstract findOne(id: string): Promise<Outputs.User>;
     abstract create(user: Inputs.createUser): Promise<Outputs.User>;
-    abstract update(user: Inputs.updateUser): Promise<Outputs.User>;
-    abstract updatePassword(user: Inputs.updatePassword): Promise<Outputs.User>;
+    abstract update(user: Inputs.updateUser): Promise<void>;
+    abstract updatePassword(user: Inputs.updatePassword): Promise<void>;
     abstract delete(id: string): Promise<void>;
   }
 }

@@ -8,6 +8,7 @@ import {
   VersioningType,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -22,10 +23,12 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const logLevels = configService.get<LogLevel[]>('LOG_LEVEL');
+
   app.useLogger(new ConsoleLogger('InStock Backend', { logLevels }));
 
+  app.use(helmet());
   app.enableCors({
-    origin: 'http://localhost:3000',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

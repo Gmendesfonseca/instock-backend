@@ -26,16 +26,16 @@ export class UserService implements UserServiceInterface.UserService {
 
   async update(
     updateUser: UserServiceInterface.Inputs.updateUser,
-  ): Promise<UserServiceInterface.Outputs.User> {
+  ): Promise<void> {
     this.logger.debug('UserService.update: Called');
-    return await this.usersRepository.update(updateUser);
+    await this.usersRepository.update(updateUser);
   }
 
   async updatePassword(
     input: UserServiceInterface.Inputs.updatePassword,
-  ): Promise<UserServiceInterface.Outputs.User> {
+  ): Promise<void> {
     this.logger.debug('UserService.updatePassword: Called');
-    return await this.usersRepository.updatePassword(input);
+    await this.usersRepository.updatePassword(input);
   }
 
   async delete(id: string): Promise<void> {

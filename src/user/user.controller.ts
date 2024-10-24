@@ -21,21 +21,21 @@ export class UsersController {
 
   constructor(private readonly userService: UserServiceInterface.UserService) {}
 
-  @Get(':id')
+  @Get('/:id')
   @HttpCode(200)
   getUser(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('UsersController.getUser: Called');
     return this.userService.findOne(id);
   }
 
-  @Post('/create')
+  @Post('/')
   @HttpCode(201)
   createUser(@Body() body: CreateUserDto) {
     this.logger.debug('UsersController.createUser: Called');
     return this.userService.create(body);
   }
 
-  @Put(':id')
+  @Put('/:id')
   @HttpCode(204)
   updateUser(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -49,7 +49,7 @@ export class UsersController {
     });
   }
 
-  @Put(':id/password')
+  @Put('/:id/password')
   @HttpCode(204)
   updatePassword(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -59,7 +59,7 @@ export class UsersController {
     return this.userService.updatePassword({ id, password });
   }
 
-  @Delete(':id')
+  @Delete('/:id')
   @HttpCode(204)
   deleteUser(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('UsersController.deleteUser: Called');

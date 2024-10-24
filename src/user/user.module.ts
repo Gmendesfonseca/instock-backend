@@ -20,6 +20,11 @@ import { UserServiceInterface } from './interfaces/user.service.interface';
     },
   ],
   controllers: [UsersController],
-  exports: [UserRepositoryInterface.UserRepository],
+  exports: [
+    {
+      provide: UserRepositoryInterface.UserRepository,
+      useClass: UserSequelizeRepository,
+    },
+  ],
 })
 export class UsersModule {}
