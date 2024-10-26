@@ -10,6 +10,7 @@ import { DatabaseModule } from 'src/config/database.module';
 import { PaginationMiddleware } from 'src/middleware/pagination/pagination.middleware';
 import { SwaggerModule } from '@nestjs/swagger';
 import { TagModule } from './tag/tag.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TagModule } from './tag/tag.module';
     DatabaseModule,
     JwtModule,
     UsersModule,
+    ProjectModule,
     TagModule,
     SwaggerModule,
   ],
