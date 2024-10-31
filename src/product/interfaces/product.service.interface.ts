@@ -9,16 +9,17 @@ export namespace ProductServiceInterface {
             sale_price: number;
             quantity: number;
             unit_measurement: UnitMeasurementType;
+            company_id: string;
         }
 
         export interface updateProduct {
-            id: string;
             name: string;
             description: string;
             sale_price: number;
             purchase_price: number;
             quantity: number;
             unit_measurement: UnitMeasurementType;
+            company_id: string;
         }
 
         export interface deleteProduct {
@@ -40,9 +41,9 @@ export namespace ProductServiceInterface {
 
     export abstract class ProductService {
         abstract findOne(id: string): Promise<Outputs.Product | null>;
-        abstract findAll(): Promise<Outputs.Product[]>
+        abstract findAll(companyId: string): Promise<Outputs.Product[]>
         abstract create(product: Inputs.createProduct): Promise<Outputs.Product>;
-        abstract update(product: Inputs.updateProduct): Promise<Outputs.Product>;
+        abstract update(id: string, product: Inputs.updateProduct): Promise<Outputs.Product>;
         abstract destroy(id: string): Promise<void>;
     }
 }

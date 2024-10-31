@@ -11,22 +11,16 @@ export class ProductSequelizeRepository implements ProductRepositoryInterface.Pr
         return await this.productModel.findOne({ where: { id } });
     }
 
-    async findAll(): Promise<Product[]> {
-        return await this.productModel.findAll();
+    async findAll(companyId: string): Promise<Product[]> {
+        return await this.productModel.findAll({ where: { company_id: companyId } });
     }
 
     async create(payload: ProductRepositoryInterface.payloadProduct): Promise<Product> {
         return await this.productModel.create(payload);
     }
 
-    async update(payload: ProductRepositoryInterface.payloadProduct): Promise<Product> {
-        const product = await this.findOne(payload.id);
-        product.name = payload.name;
-        product.description = payload.description;
-        product.purchase_price = payload.purchase_price;
-        product.sale_price = payload.sale_price;
-        product.quantity = payload.quantity;
-        product.unit_measurement = payload.unit_measurement;
+    async update(product: Product, payload: ProductRepositoryInterface.payloadProduct): Promise<Product> {
+        product.update(payload);
         return await product.save();
     }
 

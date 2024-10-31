@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ProductServiceInterface } from './interfaces/product.service.interface';
 import { ProductRepositoryInterface } from './interfaces/product.repository.interface';
 
@@ -15,20 +15,23 @@ export class ProductService implements ProductServiceInterface.ProductService {
     return this.productRepository.findOne(id);
   }
 
-  async findAll(): Promise<ProductServiceInterface.Outputs.Product[]> {
+  async findAll(companyId: string): Promise<ProductServiceInterface.Outputs.Product[]> {
     this.logger.debug('ProductService.findAll: Called');
-    return this.productRepository.findAll();
+    return this.productRepository.findAll(companyId);
   }
 
   async create(payload: ProductServiceInterface.Inputs.createProduct): Promise<ProductServiceInterface.Outputs.Product> {
     this.logger.debug('ProductService.create: Called');
-
     return this.productRepository.create(payload);
   }
 
-  async update(payload: ProductServiceInterface.Inputs.updateProduct): Promise<ProductServiceInterface.Outputs.Product> {
+  async update(id: string, payload: ProductServiceInterface.Inputs.updateProduct): Promise<ProductServiceInterface.Outputs.Product> {
     this.logger.debug('ProductService.update: Called');
-    return this.productRepository.update(payload);
+    const product = await this.productRepository.findOne(id);
+    if (!product) {
+      throw new NotFoundException();
+    }
+    return this.productRepository.update(product, payload);
   }
 
   async destroy(id: string) {

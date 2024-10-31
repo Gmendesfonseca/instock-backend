@@ -1,7 +1,8 @@
-import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript';
-import { UnitMeasurementType } from 'src/utils/constants';
+import { BelongsTo, Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Company } from 'src/company/company.model';
+import { UnitMeasurement, UnitMeasurementType } from 'src/utils/constants';
 
-@Table({ tableName: 'users', underscored: true, paranoid: true })
+@Table({ tableName: 'instock_products', underscored: true, paranoid: true })
 export class Product extends Model<Product> {
     @Column({ type: DataType.UUID, primaryKey: true })
     id: string;
@@ -21,12 +22,9 @@ export class Product extends Model<Product> {
     @Column
     quantity: number;
 
-    @Column
+    @Column({ type: DataType.ENUM, values: Object.values(UnitMeasurement) })
     unit_measurement: UnitMeasurementType;
 
-    // @Column
-    // status: string;
-
-    // @HasOne(() => Category)
-    // category: Category;
+    @BelongsTo(() => Company)
+    company_id: string;
 }
