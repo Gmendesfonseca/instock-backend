@@ -14,10 +14,10 @@ export class UserService implements UserServiceInterface.UserService {
 
   constructor(
     private readonly usersRepository: UserRepositoryInterface.UserRepository,
-  ) {}
+  ) { }
 
-  async findOne(id: string): Promise<User | null> {
-    this.logger.debug('UserService.findById: Called');
+  async findOne(id: string): Promise<UserServiceInterface.Outputs.User | null> {
+    this.logger.debug('UserService.findOne: Called');
     return this.usersRepository.findOne(id);
   }
 
