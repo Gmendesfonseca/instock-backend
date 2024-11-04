@@ -1,6 +1,6 @@
 import { PartialType } from '@nestjs/swagger';
 import { CreateProductDto } from './create-product.dto';
-import { IsEnum, IsNumber, IsString } from 'class-validator';
+import { IsEnum, IsInt, IsNumber, IsString } from 'class-validator';
 import { UnitMeasurement, UnitMeasurementType } from 'src/utils/constants';
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {
@@ -12,7 +12,7 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     sale_price: number;
     @IsNumber()
     purchase_price: number;
-    @IsNumber()
+    @IsInt()
     quantity: number;
     @IsEnum(UnitMeasurement)
     unit_measurement: UnitMeasurementType;

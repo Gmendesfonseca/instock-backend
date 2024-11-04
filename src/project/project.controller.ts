@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { ProjectServiceInterface } from './interface/project.service.interface';
 import { CreateProjectDto } from './dto/create-project.dto';
-import { UpdateProjectDto } from './dto/update-user.dto';
+import { UpdateProjectDto } from './dto/update-project.dto';
 
 @Controller('/projects')
 export class ProjectController {

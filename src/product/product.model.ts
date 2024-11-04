@@ -4,7 +4,7 @@ import { UnitMeasurement, UnitMeasurementType } from 'src/utils/constants';
 
 @Table({ tableName: 'instock_products', underscored: true, paranoid: true })
 export class Product extends Model<Product> {
-    @Column({ type: DataType.UUID, primaryKey: true })
+    @Column({ type: DataType.UUID, primaryKey: true, autoIncrement: true })
     id: string;
 
     @Column

@@ -15,11 +15,11 @@ export class ProductSequelizeRepository implements ProductRepositoryInterface.Pr
         return await this.productModel.findAll({ where: { company_id: companyId } });
     }
 
-    async create(payload: ProductRepositoryInterface.payloadProduct): Promise<Product> {
+    async create(payload: ProductRepositoryInterface.Inputs.payloadProduct): Promise<Product> {
         return await this.productModel.create(payload);
     }
 
-    async update(product: Product, payload: ProductRepositoryInterface.payloadProduct): Promise<Product> {
+    async update(product: Product, payload: ProductRepositoryInterface.Inputs.payloadProduct): Promise<Product> {
         product.update(payload);
         return await product.save();
     }
