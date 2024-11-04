@@ -24,14 +24,16 @@ export class ProjectController {
 
   @Get('/companies/:company_id')
   @HttpCode(200)
-  getProjectsByCompany(company_id: string) {
+  getProjectsByCompany(
+    @Param('company_id', new ParseUUIDPipe()) company_id: string,
+  ) {
     this.logger.debug('ProjectController.getProjectsByCompany: Called');
     return this.projectService.findAll(company_id);
   }
 
   @Get('/:id')
   @HttpCode(200)
-  getProject(id: string) {
+  getProject(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('ProjectController.getProject: Called');
     return this.projectService.findOne(id);
   }

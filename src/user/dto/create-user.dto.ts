@@ -7,8 +7,6 @@ export class CreateUserDto {
   readonly password: string;
   @IsString()
   readonly username: string;
-  @IsEnum(['ACTIVE', 'BLOCKED'])
-  readonly status: string;
   @IsEnum(['PERSON', 'COMPANY'])
   readonly type: string;
 }

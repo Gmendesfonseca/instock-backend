@@ -5,6 +5,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepositoryInterface } from './interfaces/user.repository.interface';
 import { UserServiceInterface } from './interfaces/user.service.interface';
+import { v4 as UUIDV4 } from 'uuid';
+import { IsUUID } from 'sequelize-typescript';
 
 @Injectable()
 export class UserService implements UserServiceInterface.UserService {

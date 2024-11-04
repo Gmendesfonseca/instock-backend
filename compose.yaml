@@ -11,7 +11,7 @@ services:
         environment:
           - PORT=5000
           - DB_HOST=postgres
-          - DB_DATABASE=incicle
+          - DB_DATABASE=teste
           - DB_USERNAME=inciclemaster
           - DB_PASSWORD=incicle-pass
           - JWT_SECRET=dEP1CRzlFR8LwqA3Nt96rupOarLM6Q6z

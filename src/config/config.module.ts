@@ -13,6 +13,7 @@ const logLevels: LogLevel[] = [
 ];
 
 type ApplicationProperties = {
+  DRIVE_DISK: string;
   PORT: number;
   NODE_ENV: string;
   LOG_LEVEL: string;
@@ -33,6 +34,7 @@ type DatabaseProperties = {
 export type ConfigProperties = DatabaseProperties & ApplicationProperties;
 
 const configSchema: Joi.StrictSchemaMap<ConfigProperties> = {
+  DRIVE_DISK: Joi.string().valid('local', 's3').default('local'),
   NODE_ENV: Joi.string()
     .valid('development', 'production', 'test')
     .default('development'),
@@ -56,7 +58,7 @@ const configSchema: Joi.StrictSchemaMap<ConfigProperties> = {
       'any.invalid': 'LOG_LEVEL contains invalid values: {{#levels}}',
     })
     .description('Allowed log levels: log, error, warn, debug, verbose'),
-  PORT: Joi.number().port().default(3337),
+  PORT: Joi.number().port().default(5000),
   JWT_SECRET: Joi.string().required(),
   JWT_EXPIRES_IN: Joi.string().required(),
   DB_HOST: Joi.string().required(),

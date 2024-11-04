@@ -1,3 +1,4 @@
+import { projectFactory } from 'test/factory';
 import { ProjectRepositoryInterface } from './interface/project.repository.interface';
 import { ProjectService } from './project.service';
 
@@ -20,7 +21,7 @@ describe('ProjectService', () => {
   describe('findAll', () => {
     it('should return all projects for a given company', async () => {
       const companyId = 'company123';
-      const projects = [{ id: '1', name: 'Project 1' }];
+      const projects = projectFactory.buildMany(3);
       jest.spyOn(projectRepository, 'findAll').mockResolvedValue(projects);
 
       const result = await projectService.findAll(companyId);

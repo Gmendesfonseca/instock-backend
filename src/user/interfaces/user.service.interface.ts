@@ -4,7 +4,6 @@ export namespace UserServiceInterface {
       email: string;
       password: string;
       username: string;
-      status: string;
       type: string;
     }
 

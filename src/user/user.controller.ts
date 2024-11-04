@@ -14,6 +14,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto, UpdateUserDto } from './dto/update-user.dto';
 import { UserServiceInterface } from './interfaces/user.service.interface';
+import { Public } from 'src/utils/constants';
 
 @Controller('/users')
 export class UsersController {
@@ -28,6 +29,7 @@ export class UsersController {
     return this.userService.findOne(id);
   }
 
+  @Public()
   @Post('/')
   @HttpCode(201)
   createUser(@Body() body: CreateUserDto) {

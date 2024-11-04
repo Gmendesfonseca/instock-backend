@@ -8,15 +8,15 @@ import {
 } from 'sequelize-typescript';
 import { Company } from 'src/company/company.model';
 
-@Table({ tableName: 'instock_projects', underscored: true, paranoid: true })
+@Table({ tableName: 'in_stock_projects', underscored: true, paranoid: true })
 export class Project extends Model<Project> {
-  @Column({ type: DataType.UUID, primaryKey: true })
+  @Column({ type: DataType.UUID, primaryKey: true, autoIncrement: true })
   id: string;
 
   @Column
   name: string;
 
-  @Column
+  @Column({ type: DataType.ENUM('ACTIVE', 'CANCELED', 'FINISHED') })
   status: string;
 
   @Column
@@ -35,8 +35,8 @@ export class Project extends Model<Project> {
   client: string;
 
   @ForeignKey(() => Company)
-  @Column
-  companyId: number;
+  @Column({ type: DataType.UUID })
+  companyId: string;
 
   @BelongsTo(() => Company)
   company: Company;

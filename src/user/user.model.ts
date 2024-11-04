@@ -4,22 +4,22 @@ import { Person } from 'src/person/person.model';
 
 @Table({ tableName: 'users', underscored: true, paranoid: true })
 export class User extends Model<User> {
-  @Column({ type: DataType.UUID, primaryKey: true })
+  @Column({ type: DataType.UUID, primaryKey: true, autoIncrement: true })
   id: string;
 
-  @Column
+  @Column({ unique: true })
   email: string;
 
   @Column
   password: string;
 
-  @Column
+  @Column({ allowNull: false, unique: true })
   username: string;
 
-  @Column
+  @Column({ type: DataType.ENUM('ACTIVE', 'BLOCKED') })
   status: string;
 
-  @Column
+  @Column({ type: DataType.ENUM('COMPANY', 'PERSON') })
   type: string;
 
   @Column({ type: DataType.BOOLEAN })
