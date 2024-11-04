@@ -5,11 +5,10 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class UserSequelizeRepository
-  implements UserRepositoryInterface.UserRepository
-{
+  implements UserRepositoryInterface.UserRepository {
   private readonly logger = new Logger(UserSequelizeRepository.name);
 
-  constructor(@InjectModel(User) private userModel: typeof User) {}
+  constructor(@InjectModel(User) private userModel: typeof User) { }
 
   async findOne(id: string): Promise<User> {
     return this.userModel.findOne({ where: { id } });
@@ -35,8 +34,7 @@ export class UserSequelizeRepository
     updateUser: UserRepositoryInterface.Inputs.updateUser,
   ): Promise<User> {
     const user = await this.findOne(updateUser.id);
-    user.username = updateUser.username;
-    user.email = updateUser.email;
+    user.update(updateUser);
     return await user.save();
   }
 

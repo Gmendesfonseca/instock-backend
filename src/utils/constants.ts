@@ -1,9 +1,17 @@
 import { SetMetadata } from '@nestjs/common';
 
-export enum GroupUser { 
-  COMPANY = 'COMPANY', 
-  PERSON = 'PERSON' 
+export enum GroupUser {
+  COMPANY = 'COMPANY',
+  PERSON = 'PERSON'
 }
+
+export const UnitMeasurement = {
+  KILOGRAM: 'KG',
+  LITER: 'L',
+  UNIT: 'UNIT'
+};
+
+export type UnitMeasurementType = 'KILOGRAM' | 'LITER' | 'UNIT';
 
 export const statusTypes = {
   1: 'PENDING',
