@@ -1,14 +1,19 @@
 import { SetMetadata } from '@nestjs/common';
 
-export enum GroupUser {
-  COMPANY = 'COMPANY',
-  PERSON = 'PERSON'
-}
+export const GroupUser = {
+  COMPANY: 'COMPANY',
+  PERSON: 'PERSON',
+};
+
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  BLOCKED: 'BLOCKED',
+};
 
 export const UnitMeasurement = {
   KILOGRAM: 'KG',
   LITER: 'L',
-  UNIT: 'UNIT'
+  UNIT: 'UNIT',
 };
 
 export type UnitMeasurementType = 'KILOGRAM' | 'LITER' | 'UNIT';

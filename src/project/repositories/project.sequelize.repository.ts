@@ -10,7 +10,7 @@ export class ProjectSequelizeRepository
   private readonly logger = new Logger(ProjectSequelizeRepository.name);
   constructor(@InjectModel(Project) private projectModel: typeof Project) {}
 
-  async findAll(companyId: string): Promise<Project[] | undefined> {
+  async findAll(companyId: string): Promise<Project[] | null> {
     return this.projectModel.findAll({
       where: { deletedAt: null, company: { id: companyId } },
     });

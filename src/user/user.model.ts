@@ -1,6 +1,7 @@
 import { Column, DataType, HasOne, Model, Table } from 'sequelize-typescript';
 import { Company } from 'src/company/company.model';
 import { Person } from 'src/person/person.model';
+import { GroupUser, UserStatus } from 'src/utils/constants';
 
 @Table({ tableName: 'users', underscored: true, paranoid: true })
 export class User extends Model<User> {
@@ -16,13 +17,17 @@ export class User extends Model<User> {
   @Column({ allowNull: false, unique: true })
   username: string;
 
-  @Column({ type: DataType.ENUM('ACTIVE', 'BLOCKED') })
+  @Column({
+    type: DataType.ENUM,
+    values: Object.values(UserStatus),
+    defaultValue: 'ACTIVE',
+  })
   status: string;
 
-  @Column({ type: DataType.ENUM('COMPANY', 'PERSON') })
+  @Column({ type: DataType.ENUM, values: Object.values(GroupUser) })
   type: string;
 
-  @Column({ type: DataType.BOOLEAN })
+  @Column({ type: DataType.BOOLEAN, defaultValue: true })
   isVerified: boolean;
 
   @HasOne(() => Company)
