@@ -37,7 +37,7 @@ export class Project extends Model<Project> {
 
   @ForeignKey(() => Company)
   @Column({ type: DataType.UUID })
-  companyId: string;
+  company_id: string;
 
   @BelongsTo(() => Company)
   company: Company;
