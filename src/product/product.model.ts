@@ -2,6 +2,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
@@ -31,6 +32,10 @@ export class Product extends Model<Product> {
   @Column({ type: DataType.ENUM, values: Object.values(UnitMeasurement) })
   unit_measurement: UnitMeasurementType;
 
+  @ForeignKey(() => Company)
+  @Column({ type: DataType.UUID })
+  companyId: string;
+
   @BelongsTo(() => Company)
-  company_id: string;
+  company: Company;
 }
