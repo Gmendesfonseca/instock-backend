@@ -6,8 +6,8 @@ export namespace ProjectRepositoryInterface {
       name: string;
       status: string;
       description: string;
-      start_date: Date;
-      end_date: Date;
+      start_date: string;
+      end_date: string;
       amount: number;
       client: string;
     }
@@ -17,8 +17,8 @@ export namespace ProjectRepositoryInterface {
       name: string;
       status: string;
       description: string;
-      start_date: Date;
-      end_date: Date;
+      start_date: string;
+      end_date: string;
       amount: number;
       client: string;
     }

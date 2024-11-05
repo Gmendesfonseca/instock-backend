@@ -23,11 +23,11 @@ export class Project extends Model<Project> {
   @Column
   description: string;
 
-  @Column
-  start_date: Date;
+  @Column({ type: DataType.DATE })
+  start_date: string;
 
-  @Column
-  end_date: Date;
+  @Column({ type: DataType.DATE })
+  end_date: string;
 
   @Column
   amount: number;

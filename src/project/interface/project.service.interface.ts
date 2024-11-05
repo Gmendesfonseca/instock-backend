@@ -4,8 +4,8 @@ export namespace ProjectServiceInterface {
       name: string;
       status: string;
       description: string;
-      start_date: Date;
-      end_date: Date;
+      start_date: string;
+      end_date: string;
       amount: number;
       client: string;
     }
@@ -15,8 +15,8 @@ export namespace ProjectServiceInterface {
       name: string;
       status: string;
       description: string;
-      start_date: Date;
-      end_date: Date;
+      start_date: string;
+      end_date: string;
       amount: number;
       client: string;
     }
@@ -32,8 +32,8 @@ export namespace ProjectServiceInterface {
       name: string;
       status: string;
       description: string;
-      start_date: Date;
-      end_date: Date;
+      start_date: string;
+      end_date: string;
       amount: number;
       client: string;
     }
