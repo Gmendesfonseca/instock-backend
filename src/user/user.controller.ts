@@ -7,6 +7,7 @@ import {
   Logger,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -51,7 +52,7 @@ export class UsersController {
     });
   }
 
-  @Put('/:id/password')
+  @Patch('/:id/password')
   @HttpCode(204)
   updatePassword(
     @Param('id', new ParseUUIDPipe()) id: string,

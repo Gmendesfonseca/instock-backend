@@ -7,6 +7,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Company } from 'src/company/company.model';
+import { ProjectStatus } from 'src/utils/constants';
 
 @Table({ tableName: 'in_stock_projects', underscored: true, paranoid: true })
 export class Project extends Model<Project> {
@@ -16,7 +17,7 @@ export class Project extends Model<Project> {
   @Column
   name: string;
 
-  @Column({ type: DataType.ENUM('ACTIVE', 'CANCELED', 'FINISHED') })
+  @Column({ type: DataType.ENUM, values: Object.values(ProjectStatus) })
   status: string;
 
   @Column

@@ -33,13 +33,13 @@ export namespace TagServiceInterface {
   }
 
   export abstract class TagService {
-    abstract findOne(rfid: Inputs.FindOne): Promise<Outputs.Tag>;
+    abstract findOne(rfid: Inputs.FindOne): Promise<Outputs.Tag | null>;
     abstract findByProduct(
       productId: Inputs.FindByProduct,
-    ): Promise<Outputs.Tag>;
+    ): Promise<Outputs.Tag | null>;
     abstract findByCompany(
       companyId: Inputs.FindByCompany,
-    ): Promise<Outputs.Tag[]>;
+    ): Promise<Outputs.Tag[] | null>;
     abstract create(body: Inputs.Create): Promise<Outputs.Tag>;
     abstract update({ rfid, productId }: Inputs.Update): Promise<void>;
     abstract delete(rfid: string): Promise<void>;

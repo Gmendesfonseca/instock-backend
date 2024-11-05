@@ -5,7 +5,7 @@ import { defineCompanyFactory } from './company';
 import { definePersonFactory } from './person';
 import { defineTagFactory } from './tag';
 import { defineProjectFactory } from './project';
-// import { defineProductFactory } from './product';
+import { defineProductFactory } from './product';
 
 FactoryGirl.setAdapter(new SequelizeAdapter());
 
@@ -14,7 +14,7 @@ const companyFactory = defineCompanyFactory(FactoryGirl);
 const personFactory = definePersonFactory(FactoryGirl);
 const tagFactory = defineTagFactory(FactoryGirl);
 const projectFactory = defineProjectFactory(FactoryGirl);
-// const productFactory = defineProductFactory(FactoryGirl);
+const productFactory = defineProductFactory(FactoryGirl);
 
 export {
   userFactory,
@@ -22,4 +22,5 @@ export {
   personFactory,
   tagFactory,
   projectFactory,
+  productFactory,
 };

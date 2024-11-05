@@ -16,28 +16,21 @@ export class ProjectSequelizeRepository
     });
   }
 
-  async findOne(id: string): Promise<Project> {
+  async findOne(id: string): Promise<Project | null> {
     return this.projectModel.findOne({ where: { id } });
   }
 
   async create(
-    newProject: ProjectRepositoryInterface.createProject,
+    newProject: ProjectRepositoryInterface.Inputs.createProject,
   ): Promise<Project> {
     return this.projectModel.create(newProject);
   }
 
   async update(
-    updateProject: ProjectRepositoryInterface.updateProject,
+    updateProject: ProjectRepositoryInterface.Inputs.updateProject,
   ): Promise<Project> {
     const project = await this.findOne(updateProject.id);
-    project.name = updateProject.name;
-    project.status = updateProject.status;
-    project.description = updateProject.description;
-    project.start_date = updateProject.start_date;
-    project.end_date = updateProject.end_date;
-    project.amount = updateProject.amount;
-    project.client = updateProject.client;
-    return await project.save();
+    return await project.update(updateProject);
   }
 
   async delete(id: string): Promise<void> {

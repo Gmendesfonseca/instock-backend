@@ -10,6 +10,12 @@ export const UserStatus = {
   BLOCKED: 'BLOCKED',
 };
 
+export const ProjectStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELED: 'CANCELED',
+  FINISHED: 'FINISHED',
+};
+
 export const UnitMeasurement = {
   KILOGRAM: 'KG',
   LITER: 'L',

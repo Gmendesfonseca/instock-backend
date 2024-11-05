@@ -11,7 +11,7 @@ export class TagSequelizeRepository
 
   constructor(@InjectModel(Tag) private tagModel: typeof Tag) {}
 
-  async findOne(rfid: string): Promise<Tag> {
+  async findOne(rfid: string): Promise<Tag | null> {
     this.logger.debug('TagSequelizeRepository.findOne: called');
     return this.tagModel.findOne({
       where: { rfid },
@@ -19,7 +19,7 @@ export class TagSequelizeRepository
     });
   }
 
-  async findByProduct(productId: string): Promise<Tag> {
+  async findByProduct(productId: string): Promise<Tag | null> {
     this.logger.debug('TagSequelizeRepository.findByProduct: called');
     return this.tagModel.findOne({
       where: { productId },
@@ -27,7 +27,7 @@ export class TagSequelizeRepository
     });
   }
 
-  async findByCompany(companyId: string): Promise<Tag[]> {
+  async findByCompany(companyId: string): Promise<Tag[] | null> {
     this.logger.debug('TagSequelizeRepository.findByCompany: called');
     return this.tagModel.findAll({
       where: { companyId },

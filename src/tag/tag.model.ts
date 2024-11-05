@@ -6,6 +6,7 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Company } from 'src/company/company.model';
+import { Product } from 'src/product/product.model';
 
 @Table({
   tableName: 'in_stock_tags',
@@ -17,11 +18,11 @@ export class Tag extends Model<Tag> {
   @Column({ primaryKey: true })
   rfid: string;
 
-  // @ForeignKey(() => Product)
-  // @Column
+  @ForeignKey(() => Product)
+  @Column
   productId: string;
 
   @ForeignKey(() => Company)
-  @Column({ field: 'company_id', type: DataType.UUID })
+  @Column({ type: DataType.UUID })
   companyId: string;
 }

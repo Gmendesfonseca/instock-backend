@@ -12,13 +12,13 @@ export class TagService implements TagServiceInterface.TagService {
 
   async findOne({
     rfid,
-  }: TagServiceInterface.Inputs.FindOne): Promise<TagServiceInterface.Outputs.Tag> {
+  }: TagServiceInterface.Inputs.FindOne): Promise<TagServiceInterface.Outputs.Tag | null> {
     this.logger.log('TagService.findOne: called');
     return this.tagRepository.findOne(rfid);
   }
   async findByProduct({
     productId,
-  }: TagServiceInterface.Inputs.FindByProduct): Promise<TagServiceInterface.Outputs.Tag> {
+  }: TagServiceInterface.Inputs.FindByProduct): Promise<TagServiceInterface.Outputs.Tag | null> {
     this.logger.log('TagService.findByProduct: called');
     return this.tagRepository.findByProduct(productId);
   }
@@ -26,7 +26,7 @@ export class TagService implements TagServiceInterface.TagService {
   async findByCompany({
     companyId,
   }: TagServiceInterface.Inputs.FindByCompany): Promise<
-    TagServiceInterface.Outputs.Tag[]
+    TagServiceInterface.Outputs.Tag[] | null
   > {
     this.logger.log('TagService.findByCompany: called');
     return this.tagRepository.findByCompany(companyId);

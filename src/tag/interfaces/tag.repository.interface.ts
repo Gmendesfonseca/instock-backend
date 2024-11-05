@@ -15,9 +15,9 @@ export namespace TagRepositoryInterface {
   }
 
   export abstract class TagRepository {
-    abstract findOne(rfid: string): Promise<Tag>;
-    abstract findByProduct(productId: string): Promise<Tag>;
-    abstract findByCompany(companyId: string): Promise<Tag[]>;
+    abstract findOne(rfid: string): Promise<Tag | null>;
+    abstract findByProduct(productId: string): Promise<Tag | null>;
+    abstract findByCompany(companyId: string): Promise<Tag[] | null>;
     abstract create({
       rfid,
       productId,
