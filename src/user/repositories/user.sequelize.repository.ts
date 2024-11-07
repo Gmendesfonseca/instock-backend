@@ -5,12 +5,14 @@ import { InjectModel } from '@nestjs/sequelize';
 
 @Injectable()
 export class UserSequelizeRepository
-  implements UserRepositoryInterface.UserRepository {
+  implements UserRepositoryInterface.UserRepository
+{
   private readonly logger = new Logger(UserSequelizeRepository.name);
 
-  constructor(@InjectModel(User) private userModel: typeof User) { }
+  constructor(@InjectModel(User) private userModel: typeof User) {}
 
   async findOne(id: string): Promise<User> {
+    this.logger.debug('UserSequelizeRepository.findOne: Called');
     return this.userModel.findOne({ where: { id } });
   }
 
@@ -27,12 +29,14 @@ export class UserSequelizeRepository
   async create(
     newUser: UserRepositoryInterface.Inputs.createUser,
   ): Promise<User> {
+    this.logger.debug('UserSequelizeRepository.create: Called');
     return this.userModel.create(newUser);
   }
 
   async update(
     updateUser: UserRepositoryInterface.Inputs.updateUser,
   ): Promise<User> {
+    this.logger.debug('UserSequelizeRepository.update: Called');
     const user = await this.findOne(updateUser.id);
     user.update(updateUser);
     return await user.save();
@@ -41,12 +45,14 @@ export class UserSequelizeRepository
   async updatePassword(
     updatePassword: UserRepositoryInterface.Inputs.updatePassword,
   ): Promise<User> {
+    this.logger.debug('UserSequelizeRepository.updatePassword: Called');
     const user = await this.findOne(updatePassword.id);
     user.password = updatePassword.password;
     return await user.save();
   }
 
   async delete(id: string): Promise<void> {
+    this.logger.debug('UserSequelizeRepository.delete: Called');
     await this.userModel.destroy({ where: { id } });
   }
 }
