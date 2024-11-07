@@ -10,7 +10,6 @@ export namespace UserRepositoryInterface {
       email: string;
       password: string;
       username: string;
-      status: string;
       type: string;
     }
 

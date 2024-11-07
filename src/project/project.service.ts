@@ -10,12 +10,16 @@ export class ProjectService implements ProjectServiceInterface.ProjectService {
     private readonly projectRepository: ProjectRepositoryInterface.ProjectRepository,
   ) {}
 
-  async findAll(companyId: string) {
+  async findAll(
+    companyId: string,
+  ): Promise<ProjectServiceInterface.Outputs.Project[] | null> {
     this.logger.debug('ProjectService.findAll: Called');
     return this.projectRepository.findAll(companyId);
   }
 
-  async findOne(id: string) {
+  async findOne(
+    id: string,
+  ): Promise<ProjectServiceInterface.Outputs.Project | null> {
     this.logger.debug('ProjectService.findOne: Called');
     return this.projectRepository.findOne(id);
   }

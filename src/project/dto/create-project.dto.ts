@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsISO8601, IsNumber, IsString } from 'class-validator';
 
 export class CreateProjectDto {
   @IsString()
@@ -7,10 +7,10 @@ export class CreateProjectDto {
   readonly status: string;
   @IsString()
   readonly description: string;
-  @IsDate()
-  readonly start_date: Date;
-  @IsDate()
-  readonly end_date: Date;
+  @IsISO8601()
+  readonly start_date: string;
+  @IsISO8601()
+  readonly end_date: string;
   @IsNumber()
   readonly amount: number;
   @IsString()

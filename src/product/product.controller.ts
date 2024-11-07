@@ -1,18 +1,30 @@
-import { Controller, Get, Post, Body, Param, Delete, ParseUUIDPipe, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  ParseUUIDPipe,
+  Put,
+} from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { ProductServiceInterface } from './interfaces/product.service.interface';
 
 @Controller('/product')
 export class ProductController {
-  constructor(private readonly productService: ProductService) { }
+  constructor(
+    private readonly productService: ProductServiceInterface.ProductService,
+  ) {}
 
   @Post('/')
   create(@Body() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
-  @Get('/company/:companyId')
+  @Get('/companies/:companyId')
   findAll(@Param('companyId', new ParseUUIDPipe()) companyId: string) {
     return this.productService.findAll(companyId);
   }
@@ -23,7 +35,10 @@ export class ProductController {
   }
 
   @Put('/:id')
-  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateProductDto: UpdateProductDto) {
+  update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() updateProductDto: UpdateProductDto,
+  ) {
     return this.productService.update(id, updateProductDto);
   }
 

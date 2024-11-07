@@ -1,8 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-
 import { User } from 'src/user/user.model';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRepositoryInterface } from './interfaces/user.repository.interface';
 import { UserServiceInterface } from './interfaces/user.service.interface';
 
@@ -12,7 +9,7 @@ export class UserService implements UserServiceInterface.UserService {
 
   constructor(
     private readonly usersRepository: UserRepositoryInterface.UserRepository,
-  ) { }
+  ) {}
 
   async findOne(id: string): Promise<UserServiceInterface.Outputs.User | null> {
     this.logger.debug('UserService.findOne: Called');

@@ -7,6 +7,7 @@ import {
   Logger,
   Param,
   ParseUUIDPipe,
+  Patch,
   Post,
   Put,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import {
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto, UpdateUserDto } from './dto/update-user.dto';
 import { UserServiceInterface } from './interfaces/user.service.interface';
+import { Public } from 'src/utils/constants';
 
 @Controller('/users')
 export class UsersController {
@@ -28,6 +30,7 @@ export class UsersController {
     return this.userService.findOne(id);
   }
 
+  @Public()
   @Post('/')
   @HttpCode(201)
   createUser(@Body() body: CreateUserDto) {
@@ -49,7 +52,7 @@ export class UsersController {
     });
   }
 
-  @Put('/:id/password')
+  @Patch('/:id/password')
   @HttpCode(204)
   updatePassword(
     @Param('id', new ParseUUIDPipe()) id: string,

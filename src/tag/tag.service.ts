@@ -12,23 +12,23 @@ export class TagService implements TagServiceInterface.TagService {
 
   async findOne({
     rfid,
-  }: TagServiceInterface.Inputs.FindOne): Promise<TagServiceInterface.Outputs.Tag> {
-    this.logger.log('TagService.findOne: called');
+  }: TagServiceInterface.Inputs.FindOne): Promise<TagServiceInterface.Outputs.Tag | null> {
+    this.logger.debug('TagService.findOne: called');
     return this.tagRepository.findOne(rfid);
   }
   async findByProduct({
     productId,
-  }: TagServiceInterface.Inputs.FindByProduct): Promise<TagServiceInterface.Outputs.Tag> {
-    this.logger.log('TagService.findByProduct: called');
+  }: TagServiceInterface.Inputs.FindByProduct): Promise<TagServiceInterface.Outputs.Tag | null> {
+    this.logger.debug('TagService.findByProduct: called');
     return this.tagRepository.findByProduct(productId);
   }
 
   async findByCompany({
     companyId,
   }: TagServiceInterface.Inputs.FindByCompany): Promise<
-    TagServiceInterface.Outputs.Tag[]
+    TagServiceInterface.Outputs.Tag[] | null
   > {
-    this.logger.log('TagService.findByCompany: called');
+    this.logger.debug('TagService.findByCompany: called');
     return this.tagRepository.findByCompany(companyId);
   }
 
@@ -37,7 +37,7 @@ export class TagService implements TagServiceInterface.TagService {
     productId,
     companyId,
   }: TagServiceInterface.Inputs.Create): Promise<TagServiceInterface.Outputs.Tag> {
-    this.logger.log('TagService.create: called');
+    this.logger.debug('TagService.create: called');
     return this.tagRepository.create({ rfid, productId, companyId });
   }
 
@@ -45,12 +45,12 @@ export class TagService implements TagServiceInterface.TagService {
     rfid,
     productId,
   }: TagServiceInterface.Inputs.Update): Promise<void> {
-    this.logger.log('TagService.update: called');
+    this.logger.debug('TagService.update: called');
     return this.tagRepository.update({ rfid, productId });
   }
 
   async delete(rfid: string): Promise<void> {
-    this.logger.log('TagService.delete: called');
+    this.logger.debug('TagService.delete: called');
     return this.tagRepository.delete(rfid);
   }
 }

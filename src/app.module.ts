@@ -11,6 +11,7 @@ import { PaginationMiddleware } from 'src/middleware/pagination/pagination.middl
 import { SwaggerModule } from '@nestjs/swagger';
 import { TagModule } from './tag/tag.module';
 import { ProjectModule } from './project/project.module';
+import { ProductModule } from './product/product.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ProjectModule } from './project/project.module';
     UsersModule,
     ProjectModule,
     TagModule,
+    ProductModule,
     SwaggerModule,
   ],
   controllers: [],
