@@ -13,7 +13,7 @@ export class ProjectSequelizeRepository
   async findAll(companyId: string): Promise<Project[] | null> {
     this.logger.debug('ProjectSequelizeRepository.findAll: Called');
     return this.projectModel.findAll({
-      where: { deletedAt: null, company: { id: companyId } },
+      where: { company_id: companyId },
     });
   }
 
