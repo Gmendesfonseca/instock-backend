@@ -1,6 +1,10 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsISO8601, IsNumber, IsString } from 'class-validator';
 
 export class CreateProjectDto {
+  @ApiProperty({
+    
+  })
   @IsString()
   readonly name: string;
   @IsString()

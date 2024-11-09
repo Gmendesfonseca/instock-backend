@@ -13,9 +13,15 @@ import helmet from 'helmet';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableVersioning({
+    type: VersioningType.URI,
+    defaultVersion: '1',
+  });
+
   const config = new DocumentBuilder()
     .setTitle('InStock API')
     .setDescription('List of available endpoints for InStock API')
+    .addBearerAuth()
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
@@ -31,11 +37,6 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-  });
-
-  app.enableVersioning({
-    type: VersioningType.URI,
-    defaultVersion: '1',
   });
 
   app.useGlobalPipes(
