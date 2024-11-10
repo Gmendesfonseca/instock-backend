@@ -1,4 +1,5 @@
 import {
+  AllowNull,
   BelongsTo,
   Column,
   DataType,
@@ -32,7 +33,7 @@ export class Project extends Model<Project> {
   @Column
   amount: number;
 
-  @Column
+  @Column({ allowNull: true })
   client: string;
 
   @ForeignKey(() => Company)
