@@ -32,7 +32,7 @@ export class CreateProductDto {
     example: 'unit',
   })
   @IsEnum(UnitMeasurement)
-  unit_measurement: string;
+  unit_measurement: UnitMeasurementType;
   @ApiProperty({
     description: 'The company ID of the product',
     example: 'c3b3b3b3-3b3b-3b3b-3b3b-3b3b3b3b3b3b',

@@ -13,7 +13,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductServiceInterface } from './interfaces/product.service.interface';
 
-@Controller('/product')
+@Controller('/products')
 export class ProductController {
   constructor(
     private readonly productService: ProductServiceInterface.ProductService,

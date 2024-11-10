@@ -1,13 +1,17 @@
 import {
   AllowNull,
   BelongsTo,
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { Company } from 'src/company/company.model';
+import { Product } from 'src/product/product.model';
+import { ProjectProduct } from 'src/project-product/product-project.model';
 import { ProjectStatus } from 'src/utils/constants';
 
 @Table({ tableName: 'in_stock_projects', underscored: true, paranoid: true })
@@ -42,4 +46,7 @@ export class Project extends Model<Project> {
 
   @BelongsTo(() => Company)
   company: Company;
+
+  @BelongsToMany(() => Product, () => ProjectProduct)
+  products: Product[];
 }
