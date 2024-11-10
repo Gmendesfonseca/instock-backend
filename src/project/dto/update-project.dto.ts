@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsNumber, IsString } from 'class-validator';
+import { IsISO8601, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateProjectDto {
   @ApiProperty({
@@ -42,6 +42,6 @@ export class UpdateProjectDto {
     description: 'The client of the project',
     example: 'Client 1',
   })
-  @IsString()
+  @IsOptional()
   readonly client: string;
 }

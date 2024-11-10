@@ -1,10 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsNumber, IsString } from 'class-validator';
+import { IsISO8601, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProjectDto {
-  @ApiProperty({
-    
-  })
+  @ApiProperty({})
   @IsString()
   readonly name: string;
   @IsString()
@@ -17,6 +15,6 @@ export class CreateProjectDto {
   readonly end_date: string;
   @IsNumber()
   readonly amount: number;
-  @IsString()
+  @IsOptional()
   readonly client: string;
 }
