@@ -27,7 +27,7 @@ export class Product extends Model<Product> {
   quantity: number;
 
   @Column({ type: DataType.ENUM, values: Object.values(UnitMeasurement) })
-  unit_measurement: UnitMeasurementType;
+  unit_measurement: string;
 
   @ForeignKey(() => Company)
   @Column({ type: DataType.UUID })

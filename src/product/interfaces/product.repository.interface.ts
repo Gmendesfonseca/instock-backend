@@ -8,7 +8,7 @@ export namespace ProductRepositoryInterface {
       description: string;
       purchase_price: number;
       quantity: number;
-      unit_measurement: UnitMeasurementType;
+      unit_measurement: string;
       company_id: string;
     }
   }

@@ -7,7 +7,7 @@ export namespace ProductServiceInterface {
       description: string;
       purchase_price: number;
       quantity: number;
-      unit_measurement: UnitMeasurementType;
+      unit_measurement: string;
       company_id: string;
     }
 
@@ -16,7 +16,7 @@ export namespace ProductServiceInterface {
       description: string;
       purchase_price: number;
       quantity: number;
-      unit_measurement: UnitMeasurementType;
+      unit_measurement: string;
       company_id: string;
     }
 
@@ -32,7 +32,7 @@ export namespace ProductServiceInterface {
       description: string;
       purchase_price: number;
       quantity: number;
-      unit_measurement: UnitMeasurementType;
+      unit_measurement: string;
     }
   }
 
