@@ -16,6 +16,8 @@ export const ProjectStatus = {
   FINISHED: 'FINISHED',
 };
 
+export type ProjectStatusType = keyof typeof ProjectStatus;
+
 export const UnitMeasurement = {
   KG: 'KG',
   L: 'L',

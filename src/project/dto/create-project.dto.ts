@@ -1,12 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsISO8601, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ProjectStatusType } from 'src/utils/constants';
 
 export class CreateProjectDto {
   @ApiProperty({})
   @IsString()
   readonly name: string;
   @IsString()
-  readonly status: string;
+  readonly status: ProjectStatusType;
   @IsString()
   readonly description: string;
   @IsISO8601()

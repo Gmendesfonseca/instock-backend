@@ -1,7 +1,9 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { IsISO8601, IsNumber, IsOptional, IsString } from 'class-validator';
+import { ProjectStatusType } from 'src/utils/constants';
+import { CreateProjectDto } from './create-project.dto';
 
-export class UpdateProjectDto {
+export class UpdateProjectDto extends PartialType(CreateProjectDto) {
   @ApiProperty({
     description: 'The name of the project',
     example: 'Project 1',
@@ -13,7 +15,7 @@ export class UpdateProjectDto {
     example: 'active',
   })
   @IsString()
-  readonly status: string;
+  readonly status: ProjectStatusType;
   @ApiProperty({
     description: 'The description of the project',
     example: 'This is a project',

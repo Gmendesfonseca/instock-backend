@@ -1,4 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Product } from '../product.model';
 import { ProductRepositoryInterface } from '../interfaces/product.repository.interface';
 import { InjectModel } from '@nestjs/sequelize';
@@ -22,10 +26,18 @@ export class ProductSequelizeRepository
   }
 
   async create(
-    payload: ProductRepositoryInterface.Inputs.payloadProduct,
+    newProduct: ProductRepositoryInterface.Inputs.payloadProduct,
   ): Promise<Product> {
     this.logger.debug('ProductSequelizeRepository.create: Called');
-    return await this.productModel.create(payload);
+    const product = await this.productModel.findOne({
+      where: { name: newProduct.name },
+    });
+    if (product) {
+      throw new UnprocessableEntityException(
+        'Another product with this name already exists',
+      );
+    }
+    return await this.productModel.create(newProduct);
   }
 
   async update(
