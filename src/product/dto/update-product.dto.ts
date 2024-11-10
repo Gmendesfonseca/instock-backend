@@ -17,12 +17,6 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
   @IsString()
   description: string;
   @ApiProperty({
-    description: 'The sale price of the product',
-    example: 100.0,
-  })
-  @IsNumber()
-  sale_price: number;
-  @ApiProperty({
     description: 'The purchase price of the product',
     example: 50.0,
   })

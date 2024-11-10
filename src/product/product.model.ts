@@ -24,9 +24,6 @@ export class Product extends Model<Product> {
   purchase_price: number;
 
   @Column
-  sale_price: number;
-
-  @Column
   quantity: number;
 
   @Column({ type: DataType.ENUM, values: Object.values(UnitMeasurement) })
