@@ -36,7 +36,7 @@ export class ProjectSequelizeRepository
     for (const item of items) {
       await this.projectProductModel.create({
         amount: item.amount,
-        productId: item.productId,
+        productId: item.product_id,
         projectId: project.id,
       });
     }

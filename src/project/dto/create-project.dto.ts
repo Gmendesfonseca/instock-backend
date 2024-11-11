@@ -28,7 +28,7 @@ export class ProductDto {
   @IsNumber()
   readonly amount: number;
   @IsNumber()
-  readonly productId: string;
+  readonly product_id: string;
 }
 
 export class BodyDto {

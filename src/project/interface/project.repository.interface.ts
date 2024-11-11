@@ -14,7 +14,7 @@ export namespace ProjectRepositoryInterface {
 
     export interface createProjectItem {
       amount: number;
-      productId: string;
+      product_id: string;
     }
 
     export interface updateProject {
