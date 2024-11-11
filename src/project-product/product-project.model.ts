@@ -19,9 +19,9 @@ export class ProjectProduct extends Model<ProjectProduct> {
 
   @ForeignKey(() => Project)
   @Column({ type: DataType.UUID })
-  project_id: string;
+  projectId: string;
 
   @ForeignKey(() => Product)
   @Column({ type: DataType.UUID })
-  product_id: string;
+  productId: string;
 }

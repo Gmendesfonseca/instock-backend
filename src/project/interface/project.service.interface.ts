@@ -12,7 +12,7 @@ export namespace ProjectServiceInterface {
 
     export interface createProjectItem {
       amount: number;
-      productId: number;
+      productId: string;
     }
 
     export interface updateProject {
