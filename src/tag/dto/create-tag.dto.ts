@@ -13,11 +13,11 @@ export class CreateTagDto {
     example: 'product123',
   })
   @IsString()
-  readonly productId: string;
+  readonly product_id: string;
   @ApiProperty({
     description: 'The ID of the company',
     example: 'company123',
   })
   @IsString()
-  readonly companyId: string;
+  readonly company_id: string;
 }

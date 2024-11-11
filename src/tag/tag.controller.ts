@@ -21,7 +21,7 @@ export class TagController {
 
   @Get('/:rfid')
   @HttpCode(200)
-  async findOne(@Param('rfid', new ParseUUIDPipe()) rfid: string) {
+  async findOne(@Param() rfid: string) {
     this.logger.log('TagController.findOne: called');
     return this.tagService.findOne({ rfid });
   }
@@ -46,9 +46,13 @@ export class TagController {
 
   @Post('/')
   @HttpCode(201)
-  async create(@Body() body: CreateTagDto) {
+  async create(@Body() { company_id, product_id, rfid }: CreateTagDto) {
     this.logger.log('TagController.create: called');
-    return this.tagService.create(body);
+    return this.tagService.create({
+      companyId: company_id,
+      productId: product_id,
+      rfid,
+    });
   }
 
   @Put('/:rfid')

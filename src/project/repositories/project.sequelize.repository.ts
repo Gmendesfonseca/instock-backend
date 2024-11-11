@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Project } from '../project.model';
 import { ProjectProduct } from 'src/project-product/product-project.model';
 import { Product } from 'src/product/product.model';
+import { Tag } from 'src/tag/tag.model';
 
 @Injectable()
 export class ProjectSequelizeRepository

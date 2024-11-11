@@ -2,6 +2,7 @@ import { User } from '../user.model';
 import { UserRepositoryInterface } from '../interfaces/user.repository.interface';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Company } from 'src/company/company.model';
 
 @Injectable()
 export class UserSequelizeRepository
@@ -13,7 +14,12 @@ export class UserSequelizeRepository
 
   async findOne(id: string): Promise<User> {
     this.logger.debug('UserSequelizeRepository.findOne: Called');
-    return this.userModel.findOne({ where: { id } });
+    return this.userModel.findOne({
+      where: { id },
+      include: {
+        model: Company,
+      },
+    });
   }
 
   async findOneByCredentials({
@@ -23,6 +29,9 @@ export class UserSequelizeRepository
     this.logger.debug('UserSequelizeRepository.findOneByCredentials: Called');
     return this.userModel.findOne({
       where: { email: email, password: password },
+      include: {
+        model: Company,
+      },
     });
   }
 

@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Put,
   Logger,
+  HttpCode,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -22,12 +23,6 @@ export class ProductController {
     private readonly productService: ProductServiceInterface.ProductService,
   ) {}
 
-  @Post('/')
-  create(@Body() createProductDto: CreateProductDto) {
-    this.logger.debug('ProductController.create: Called');
-    return this.productService.create(createProductDto);
-  }
-
   @Get('/companies/:companyId')
   findAll(@Param('companyId', new ParseUUIDPipe()) companyId: string) {
     this.logger.debug('ProductController.findAll: Called');
@@ -38,6 +33,12 @@ export class ProductController {
   findOne(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('ProductController.findOne: Called');
     return this.productService.findOne(id);
+  }
+
+  @Post('/')
+  create(@Body() createProductDto: CreateProductDto) {
+    this.logger.debug('ProductController.create: Called');
+    return this.productService.create(createProductDto);
   }
 
   @Put('/:id')

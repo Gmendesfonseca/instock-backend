@@ -1,5 +1,12 @@
 export namespace ProjectServiceInterface {
   export namespace Inputs {
+    export interface findOneByRfid {
+      rfid: string;
+    }
+
+    export interface findOne {
+      id: string;
+    }
     export interface createProject {
       name: string;
       status: string;
