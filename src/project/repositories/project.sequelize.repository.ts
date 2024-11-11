@@ -27,16 +27,14 @@ export class ProjectSequelizeRepository
     addItems: ProjectRepositoryInterface.Inputs.createProjectItem[],
   ): Promise<Project> {
     this.logger.debug('ProjectSequelizeRepository.create: Called');
-    const project = this.projectModel.create(newProject);
-    addItems.forEach(async (item) => {
-      await (
-        await project
-      ).$create('products', {
+    const project = await this.projectModel.create(newProject);
+    for (const item of addItems) {
+      await project.$create('products', {
         productId: item.productId,
-        projectId: (await project).id,
+        projectId: project.id,
         amount: item.amount,
       });
-    });
+    }
     return project;
   }
 

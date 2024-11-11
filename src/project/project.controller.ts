@@ -13,6 +13,7 @@ import {
 import { ProjectServiceInterface } from './interface/project.service.interface';
 import { BodyDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
+import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('/projects')
 export class ProjectController {
@@ -47,6 +48,7 @@ export class ProjectController {
 
   @Put('/:id')
   @HttpCode(204)
+  @ApiResponse({ status: 204, description: 'No content' })
   updateProject(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() body: UpdateProjectDto,
@@ -57,6 +59,7 @@ export class ProjectController {
 
   @Delete('/:id')
   @HttpCode(204)
+  @ApiResponse({ status: 204, description: 'No content' })
   deleteProject(@Param('id', new ParseUUIDPipe()) id: string) {
     this.logger.debug('ProjectController.deleteProject: Called');
     return this.projectService.delete(id);
