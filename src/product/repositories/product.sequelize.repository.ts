@@ -6,6 +6,7 @@ import {
 import { Product } from '../product.model';
 import { ProductRepositoryInterface } from '../interfaces/product.repository.interface';
 import { InjectModel } from '@nestjs/sequelize';
+import { Tag } from 'src/tag/tag.model';
 
 @Injectable()
 export class ProductSequelizeRepository
@@ -22,7 +23,15 @@ export class ProductSequelizeRepository
 
   async findAll(companyId: string): Promise<Product[]> {
     this.logger.debug('ProductSequelizeRepository.findAll: Called');
-    return await this.productModel.findAll({ where: { companyId: companyId } });
+    return await this.productModel.findAll({
+      where: { company_id: companyId },
+      include: [
+        {
+          model: Tag,
+          attributes: ['rfid'],
+        },
+      ],
+    });
   }
 
   async create(

@@ -3,6 +3,7 @@ import { ProjectRepositoryInterface } from '../interface/project.repository.inte
 import { InjectModel } from '@nestjs/sequelize';
 import { Project } from '../project.model';
 import { ProjectProduct } from 'src/project-product/product-project.model';
+import { Product } from 'src/product/product.model';
 
 @Injectable()
 export class ProjectSequelizeRepository
@@ -18,7 +19,18 @@ export class ProjectSequelizeRepository
   async findAll(companyId: string): Promise<Project[] | null> {
     this.logger.debug('ProjectSequelizeRepository.findAll: Called');
     return this.projectModel.findAll({
-      where: { company_id: companyId },
+      where: {
+        company_id: companyId,
+      },
+      include: [
+        {
+          model: Product,
+          through: {
+            attributes: ['amount'],
+            as: 'pivot',
+          },
+        },
+      ],
     });
   }
 
