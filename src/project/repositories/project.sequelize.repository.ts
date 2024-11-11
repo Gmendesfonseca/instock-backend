@@ -24,9 +24,20 @@ export class ProjectSequelizeRepository
 
   async create(
     newProject: ProjectRepositoryInterface.Inputs.createProject,
+    addItems: ProjectRepositoryInterface.Inputs.createProjectItem[],
   ): Promise<Project> {
     this.logger.debug('ProjectSequelizeRepository.create: Called');
-    return this.projectModel.create(newProject);
+    const project = this.projectModel.create(newProject);
+    addItems.forEach(async (item) => {
+      await (
+        await project
+      ).$create('products', {
+        productId: item.productId,
+        projectId: (await project).id,
+        amount: item.amount,
+      });
+    });
+    return project;
   }
 
   async update(

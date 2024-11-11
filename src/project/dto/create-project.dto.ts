@@ -1,9 +1,13 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsISO8601, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsISO8601,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ProjectStatusType } from 'src/utils/constants';
 
 export class CreateProjectDto {
-  @ApiProperty({})
   @IsString()
   readonly name: string;
   @IsString()
@@ -18,4 +22,17 @@ export class CreateProjectDto {
   readonly amount: number;
   @IsOptional()
   readonly client: string;
+}
+
+export class ProductDto {
+  @IsNumber()
+  readonly amount: number;
+  @IsNumber()
+  readonly productId: number;
+}
+
+export class BodyDto {
+  @IsObject()
+  readonly data: CreateProjectDto;
+  readonly items: ProductDto[];
 }

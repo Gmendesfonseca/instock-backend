@@ -14,6 +14,9 @@ import { Product } from 'src/product/product.model';
   paranoid: true,
 })
 export class ProjectProduct extends Model<ProjectProduct> {
+  @Column
+  amount: number;
+
   @ForeignKey(() => Project)
   @Column({ type: DataType.UUID })
   project_id: string;

@@ -12,6 +12,11 @@ export namespace ProjectRepositoryInterface {
       client: string;
     }
 
+    export interface createProjectItem {
+      amount: number;
+      productId: number;
+    }
+
     export interface updateProject {
       id: string;
       name: string;
@@ -30,7 +35,10 @@ export namespace ProjectRepositoryInterface {
   export abstract class ProjectRepository {
     abstract findAll(companyId: string): Promise<Project[] | null>;
     abstract findOne(id: string): Promise<Project | null>;
-    abstract create(project: Inputs.createProject): Promise<Project>;
+    abstract create(
+      project: Inputs.createProject,
+      items: Inputs.createProjectItem[],
+    ): Promise<Project>;
     abstract update(project: Inputs.updateProject): Promise<Project>;
     abstract delete(id: string): Promise<void>;
   }
