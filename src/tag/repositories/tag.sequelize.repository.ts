@@ -1,4 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Tag } from '../tag.model';
 import { TagRepositoryInterface } from '../interfaces/tag.repository.interface';
@@ -15,14 +19,13 @@ export class TagSequelizeRepository
     this.logger.debug('TagSequelizeRepository.findOne: called');
     return this.tagModel.findOne({
       where: { rfid },
-      include: [Tag],
     });
   }
 
   async findByProduct(productId: string): Promise<Tag | null> {
     this.logger.debug('TagSequelizeRepository.findByProduct: called');
     return this.tagModel.findOne({
-      where: { productId },
+      where: { product_id: productId },
       include: [Tag],
     });
   }
@@ -30,7 +33,7 @@ export class TagSequelizeRepository
   async findByCompany(companyId: string): Promise<Tag[] | null> {
     this.logger.debug('TagSequelizeRepository.findByCompany: called');
     return this.tagModel.findAll({
-      where: { companyId },
+      where: { company_id: companyId },
       include: [Tag],
     });
   }
@@ -41,7 +44,17 @@ export class TagSequelizeRepository
     companyId,
   }: TagRepositoryInterface.Inputs.Create): Promise<Tag> {
     this.logger.debug('TagSequelizeRepository.create: called');
-    return this.tagModel.create({ rfid, productId, companyId });
+    const tag = await this.tagModel.findOne({
+      where: { rfid },
+    });
+
+    if (tag) throw new UnprocessableEntityException();
+
+    return this.tagModel.create({
+      rfid,
+      product_id: productId,
+      company_id: companyId,
+    });
   }
 
   async update({
@@ -49,7 +62,7 @@ export class TagSequelizeRepository
     productId,
   }: TagRepositoryInterface.Inputs.Update): Promise<void> {
     this.logger.debug('TagSequelizeRepository.update: called');
-    this.tagModel.update({ productId }, { where: { rfid } });
+    this.tagModel.update({ product_id: productId }, { where: { rfid } });
   }
 
   async delete(rfid: string): Promise<void> {

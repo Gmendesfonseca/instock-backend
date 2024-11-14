@@ -1,7 +1,9 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
+  HasOne,
   Model,
   Table,
 } from 'sequelize-typescript';
@@ -19,10 +21,13 @@ export class Tag extends Model<Tag> {
   rfid: string;
 
   @ForeignKey(() => Product)
-  @Column
-  productId: string;
+  @Column({ type: DataType.UUID })
+  product_id: string;
 
   @ForeignKey(() => Company)
   @Column({ type: DataType.UUID })
-  companyId: string;
+  company_id: string;
+
+  @BelongsTo(() => Product)
+  product: Product;
 }

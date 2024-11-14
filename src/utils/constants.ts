@@ -16,13 +16,15 @@ export const ProjectStatus = {
   FINISHED: 'FINISHED',
 };
 
+export type ProjectStatusType = keyof typeof ProjectStatus;
+
 export const UnitMeasurement = {
-  KILOGRAM: 'KG',
-  LITER: 'L',
+  KG: 'KG',
+  L: 'L',
   UNIT: 'UNIT',
 };
 
-export type UnitMeasurementType = 'KILOGRAM' | 'LITER' | 'UNIT';
+export type UnitMeasurementType = keyof typeof UnitMeasurement;
 
 export const statusTypes = {
   1: 'PENDING',

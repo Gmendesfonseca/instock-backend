@@ -22,6 +22,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
     this.logger.debug('AuthService.me: called');
 
     const userModel = await this.userRepository.findOne(user.id);
+    this.logger.debug(JSON.stringify(userModel));
 
     if (!userModel) {
       throw new NotFoundException('User not found');
@@ -34,7 +35,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
       username: userModel.username,
       email: userModel.email,
       type: userModel.type,
-      profile_id: userModel.id, //userModel.person.id,
+      profile_id: user.type === 'COMPANY' ? userModel.company.id : null, //userModel.person.id,
       social_name: null, //userModel.person.name,
       user_config: {
         id: user.id,
@@ -52,7 +53,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
       profile_config: {
         created_at: null, //userModel.person.createdAt,
         deleted_at: null,
-        id: userModel.id,
+        id: user.type === 'COMPANY' ? userModel.company.id : null, //userModel.person.id,
         person_id: userModel.id, //userModel.person.id,
         requests_solicitation: 'ALL',
         show_friends: 'ALL',
@@ -95,6 +96,7 @@ export class AuthService implements AuthServiceInterface.AuthService {
         username: user.username,
         email: user.email,
         type: user.type,
+        profile_id: user.type === 'COMPANY' ? user.company.id : null,
       },
     };
 

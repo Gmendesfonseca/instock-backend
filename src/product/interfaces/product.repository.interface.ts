@@ -6,10 +6,9 @@ export namespace ProductRepositoryInterface {
     export interface payloadProduct {
       name: string;
       description: string;
-      sale_price: number;
       purchase_price: number;
       quantity: number;
-      unit_measurement: UnitMeasurementType;
+      unit_measurement: string;
       company_id: string;
     }
   }

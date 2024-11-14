@@ -6,6 +6,7 @@ import { ProductRepositoryInterface } from './interfaces/product.repository.inte
 import { ProductSequelizeRepository } from './repositories/product.sequelize.repository';
 import { Product } from './product.model';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { Tag } from 'src/tag/tag.model';
 
 @Module({
   imports: [SequelizeModule.forFeature([Product])],

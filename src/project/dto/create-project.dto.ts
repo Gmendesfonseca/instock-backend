@@ -1,10 +1,17 @@
-import { IsISO8601, IsNumber, IsString } from 'class-validator';
+import {
+  IsISO8601,
+  IsNumber,
+  IsObject,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+import { ProjectStatusType } from 'src/utils/constants';
 
 export class CreateProjectDto {
   @IsString()
   readonly name: string;
   @IsString()
-  readonly status: string;
+  readonly status: ProjectStatusType;
   @IsString()
   readonly description: string;
   @IsISO8601()
@@ -13,6 +20,19 @@ export class CreateProjectDto {
   readonly end_date: string;
   @IsNumber()
   readonly amount: number;
-  @IsString()
+  @IsOptional()
   readonly client: string;
+}
+
+export class ProductDto {
+  @IsNumber()
+  readonly amount: number;
+  @IsNumber()
+  readonly product_id: string;
+}
+
+export class BodyDto {
+  @IsObject()
+  readonly data: CreateProjectDto;
+  readonly items: ProductDto[];
 }

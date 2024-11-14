@@ -27,8 +27,8 @@ export namespace TagServiceInterface {
   export namespace Outputs {
     export interface Tag {
       rfid: string;
-      productId: string;
-      companyId: string;
+      product_id: string;
+      company_id: string;
     }
   }
 

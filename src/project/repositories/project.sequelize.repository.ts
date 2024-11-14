@@ -2,18 +2,36 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ProjectRepositoryInterface } from '../interface/project.repository.interface';
 import { InjectModel } from '@nestjs/sequelize';
 import { Project } from '../project.model';
+import { ProjectProduct } from 'src/project-product/product-project.model';
+import { Product } from 'src/product/product.model';
+import { Tag } from 'src/tag/tag.model';
 
 @Injectable()
 export class ProjectSequelizeRepository
   implements ProjectRepositoryInterface.ProjectRepository
 {
   private readonly logger = new Logger(ProjectSequelizeRepository.name);
-  constructor(@InjectModel(Project) private projectModel: typeof Project) {}
+  constructor(
+    @InjectModel(Project) private projectModel: typeof Project,
+    @InjectModel(ProjectProduct)
+    private projectProductModel: typeof ProjectProduct,
+  ) {}
 
   async findAll(companyId: string): Promise<Project[] | null> {
     this.logger.debug('ProjectSequelizeRepository.findAll: Called');
     return this.projectModel.findAll({
-      where: { deletedAt: null, company: { id: companyId } },
+      where: {
+        company_id: companyId,
+      },
+      include: [
+        {
+          model: Product,
+          through: {
+            attributes: ['amount'],
+            as: 'pivot',
+          },
+        },
+      ],
     });
   }
 
@@ -24,9 +42,18 @@ export class ProjectSequelizeRepository
 
   async create(
     newProject: ProjectRepositoryInterface.Inputs.createProject,
+    items: ProjectRepositoryInterface.Inputs.createProjectItem[],
   ): Promise<Project> {
     this.logger.debug('ProjectSequelizeRepository.create: Called');
-    return this.projectModel.create(newProject);
+    const project = await this.projectModel.create(newProject);
+    for (const item of items) {
+      await this.projectProductModel.create({
+        amount: item.amount,
+        productId: item.product_id,
+        projectId: project.id,
+      });
+    }
+    return project;
   }
 
   async update(

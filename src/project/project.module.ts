@@ -6,9 +6,13 @@ import { ProjectServiceInterface } from './interface/project.service.interface';
 import { ProjectRepositoryInterface } from './interface/project.repository.interface';
 import { ProjectSequelizeRepository } from './repositories/project.sequelize.repository';
 import { ProjectController } from './project.controller';
+import { ProjectProduct } from 'src/project-product/product-project.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([Project])],
+  imports: [
+    SequelizeModule.forFeature([Project]),
+    SequelizeModule.forFeature([ProjectProduct]),
+  ],
   providers: [
     {
       provide: ProjectRepositoryInterface.ProjectRepository,

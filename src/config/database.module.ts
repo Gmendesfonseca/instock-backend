@@ -9,6 +9,7 @@ import { Tag } from 'src/tag/tag.model';
 import { Project } from 'src/project/project.model';
 import { Product } from 'src/product/product.model';
 import { SyncService } from './sync.service';
+import { ProjectProduct } from 'src/project-product/product-project.model';
 
 @Module({
   imports: [
@@ -16,7 +17,15 @@ import { SyncService } from './sync.service';
       imports: [ConfigModule],
       useFactory: (configService: ConfigService<ConfigProperties>) => {
         return {
-          models: [User, Company, Person, Product, Project, Tag],
+          models: [
+            User,
+            Company,
+            Person,
+            Product,
+            Project,
+            Tag,
+            ProjectProduct,
+          ],
           logging: configService.get('DB_LOGGING'),
           autoLoadModels: configService.get('DB_AUTO_LOAD_MODELS'),
           dialect: 'postgres',
@@ -32,4 +41,4 @@ import { SyncService } from './sync.service';
   ],
   providers: [SyncService],
 })
-export class DatabaseModule { }
+export class DatabaseModule {}

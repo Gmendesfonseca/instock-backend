@@ -24,9 +24,12 @@ export class ProjectService implements ProjectServiceInterface.ProjectService {
     return this.projectRepository.findOne(id);
   }
 
-  async create(newProject: ProjectServiceInterface.Inputs.createProject) {
+  async create(
+    newProject: ProjectServiceInterface.Inputs.createProject,
+    items: ProjectServiceInterface.Inputs.createProjectItem[],
+  ) {
     this.logger.debug('ProjectService.create: Called');
-    return this.projectRepository.create(newProject);
+    return this.projectRepository.create(newProject, items);
   }
 
   async update(updateProject: ProjectServiceInterface.Inputs.updateProject) {

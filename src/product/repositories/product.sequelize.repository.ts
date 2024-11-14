@@ -1,7 +1,13 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import { Product } from '../product.model';
 import { ProductRepositoryInterface } from '../interfaces/product.repository.interface';
 import { InjectModel } from '@nestjs/sequelize';
+import { Tag } from 'src/tag/tag.model';
 
 @Injectable()
 export class ProductSequelizeRepository
@@ -18,14 +24,30 @@ export class ProductSequelizeRepository
 
   async findAll(companyId: string): Promise<Product[]> {
     this.logger.debug('ProductSequelizeRepository.findAll: Called');
-    return await this.productModel.findAll({ where: { companyId: companyId } });
+    return await this.productModel.findAll({
+      where: { company_id: companyId },
+      include: [
+        {
+          model: Tag,
+          attributes: ['rfid'],
+        },
+      ],
+    });
   }
 
   async create(
-    payload: ProductRepositoryInterface.Inputs.payloadProduct,
+    newProduct: ProductRepositoryInterface.Inputs.payloadProduct,
   ): Promise<Product> {
     this.logger.debug('ProductSequelizeRepository.create: Called');
-    return await this.productModel.create(payload);
+    const product = await this.productModel.findOne({
+      where: { name: newProduct.name },
+    });
+    if (product) {
+      throw new UnprocessableEntityException(
+        'Another product with this name already exists',
+      );
+    }
+    return await this.productModel.create(newProduct);
   }
 
   async update(
