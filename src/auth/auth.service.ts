@@ -22,7 +22,6 @@ export class AuthService implements AuthServiceInterface.AuthService {
     this.logger.debug('AuthService.me: called');
 
     const userModel = await this.userRepository.findOne(user.id);
-    this.logger.debug(JSON.stringify(userModel));
 
     if (!userModel) {
       throw new NotFoundException('User not found');
